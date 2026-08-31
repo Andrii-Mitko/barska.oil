@@ -1,0 +1,138 @@
+.catalog {
+  min-height: 100vh;
+  padding-top: 48px;
+  padding-bottom: 80px;
+  background-color: var(--color-cream);
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-width);
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: var(--container-padding);
+  padding-left: var(--container-padding);
+}
+
+.header {
+  max-width: 760px;
+  margin-bottom: 40px;
+}
+
+.eyebrow {
+  margin-bottom: 12px;
+  color: var(--color-green);
+  font-family: var(--font-body), sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.title {
+  color: var(--color-green-dark);
+  font-size: clamp(48px, 11vw, 76px);
+  font-weight: 600;
+  line-height: 0.95;
+}
+
+.description {
+  max-width: 520px;
+  margin-top: 20px;
+  color: var(--color-muted);
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.categories {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 48px;
+  padding-bottom: 14px;
+  overflow-x: auto;
+  border-bottom: 1px solid var(--color-border);
+  scrollbar-width: none;
+}
+
+.categories::-webkit-scrollbar {
+  display: none;
+}
+
+.category,
+.activeCategory {
+  flex-shrink: 0;
+  padding: 10px 18px;
+  border: 1px solid var(--color-border);
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition:
+    background-color 200ms ease,
+    color 200ms ease,
+    border-color 200ms ease;
+}
+
+.category {
+  background-color: transparent;
+  color: var(--color-green);
+}
+
+.category:hover {
+  border-color: var(--color-green);
+  background-color: var(--color-green);
+  color: var(--color-white);
+}
+
+.activeCategory {
+  border-color: var(--color-green);
+  background-color: var(--color-green);
+  color: var(--color-white);
+}
+
+.products {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+.empty {
+  padding: 60px 20px;
+  border: 1px solid var(--color-border);
+  color: var(--color-muted);
+  text-align: center;
+}
+
+@media (min-width: 600px) {
+  .catalog {
+    padding-top: 64px;
+  }
+
+  .products {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+  }
+}
+
+@media (min-width: 900px) {
+  .products {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .catalog {
+    padding-top: 80px;
+    padding-bottom: 120px;
+  }
+
+  .header {
+    margin-bottom: 48px;
+  }
+
+  .products {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+  }
+}
