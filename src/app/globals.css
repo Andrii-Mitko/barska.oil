@@ -1,39 +1,49 @@
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  --color-green: #005b3f;
+  --color-green-dark: #003f2c;
+  --color-gold: #c8a45a;
+  --color-gold-light: #dfc98f;
+  --color-cream: #f6f0df;
+  --color-white: #ffffff;
+  --color-text: #1f2924;
+  --color-muted: #68716c;
+  --color-border: #ddd5c2;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-html {
-  height: 100%;
-}
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --container-width: 1440px;
+  --container-padding: 20px;
 }
 
 * {
   box-sizing: border-box;
-  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background-color: var(--color-cream);
+  color: var(--color-text);
+  font-family: var(--font-body), sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-family: var(--font-heading), serif;
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+p {
   margin: 0;
 }
 
@@ -42,8 +52,50 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+main {
+  min-height: 100vh;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-width);
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: var(--container-padding);
+  padding-left: var(--container-padding);
+}
+
+@media (min-width: 768px) {
+  :root {
+    --container-padding: 32px;
+  }
+}
+
+@media (min-width: 1200px) {
+  :root {
+    --container-padding: 40px;
   }
 }

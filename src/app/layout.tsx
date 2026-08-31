@@ -1,14 +1,16 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Cormorant_Garamond, Source_Sans_3 } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const headingFont = Cormorant_Garamond({
+  variable: "--font-heading",
+  subsets: ["cyrillic", "latin"],
+  weight: ["500", "600", "700"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const bodyFont = Source_Sans_3({
+  variable: "--font-body",
+  subsets: ["cyrillic", "latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export default function RootLayout({
@@ -17,11 +19,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {/* <Header /> */}
+    <html lang="uk">
+      <body className={`${headingFont.variable} ${bodyFont.variable}`}>
         <main>{children}</main>
-        {/* <Footer /> */}
       </body>
     </html>
   );
