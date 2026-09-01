@@ -1,5 +1,7 @@
 import { Cormorant_Garamond, Source_Sans_3 } from "next/font/google";
 import "./globals.css";
+import Header from "@/components/Header/Header";
+import Footer from "@/components/Footer/Footer";
 
 const headingFont = Cormorant_Garamond({
   variable: "--font-heading",
@@ -21,7 +23,9 @@ export default function RootLayout({
   return (
     <html lang="uk">
       <body className={`${headingFont.variable} ${bodyFont.variable}`}>
+        <Header />
         <main>{children}</main>
+        <Footer />
       </body>
     </html>
   );

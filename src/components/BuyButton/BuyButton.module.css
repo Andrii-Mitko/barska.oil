@@ -1,0 +1,70 @@
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.viberButton,
+.phoneButton,
+.outOfStockButton {
+  display: flex;
+  min-height: 52px;
+  align-items: center;
+  justify-content: center;
+  padding-top: 14px;
+  padding-right: 24px;
+  padding-bottom: 14px;
+  padding-left: 24px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  transition:
+    background-color 200ms ease,
+    border-color 200ms ease,
+    color 200ms ease,
+    transform 200ms ease;
+}
+
+.viberButton {
+  background-color: #7360f2;
+  color: var(--color-white);
+}
+
+.viberButton:hover {
+  background-color: #6250df;
+  transform: translateY(-1px);
+}
+
+.phoneButton {
+  background-color: var(--color-green);
+  color: var(--color-white);
+}
+
+.phoneButton:hover {
+  background-color: var(--color-green-dark);
+  transform: translateY(-1px);
+}
+
+.outOfStockButton {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
+.outOfStockButton:hover {
+  background-color: #e5e7eb;
+  color: #1f2937;
+}
+
+@media (min-width: 768px) {
+  .buttons {
+    flex-direction: row;
+  }
+
+  .viberButton,
+  .phoneButton,
+  .outOfStockButton {
+    min-width: 220px;
+  }
+}

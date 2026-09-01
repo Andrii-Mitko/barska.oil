@@ -10,10 +10,6 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
-  console.log("SKU:", product.sku);
-  console.log("IMAGES:", product.images);
-  console.log("IMAGE 0:", product.images?.[0]);
-  console.log("IMAGE 0 TYPE:", typeof product.images?.[0]);
   return (
     <Link href={`/product/${product.slug}`} className={styles.card}>
       <div className={styles.imageWrapper}>

@@ -7,7 +7,7 @@ export default function Home() {
       <section className={styles.hero}>
         <Image
           className={styles.heroImage}
-          src="/images/production.jpg"
+          src="/images/production.webp"
           alt="Виробництво Барської Олії"
           fill
           priority

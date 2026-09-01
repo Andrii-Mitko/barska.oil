@@ -1,45 +1,35 @@
-import type { JSX } from "react";
+import styles from "./BuyButton.module.css";
 
-export default function BuyButton({
-  productName,
-  inStock,
-}: {
+interface BuyButtonProps {
   productName: string;
   inStock: boolean;
-}): JSX.Element {
+}
+
+export default function BuyButton({ productName, inStock }: BuyButtonProps) {
   const phone = "380677407135";
+
   const message = encodeURIComponent(
     `Доброго дня! Хочу замовити: ${productName}`,
   );
+
   const viberLink = `viber://chat?number=%2B${phone}&text=${message}`;
   const telLink = `tel:+${phone}`;
 
   if (!inStock) {
     return (
-      <a
-        href={telLink}
-        className="block mt-6 text-center py-3 px-6 rounded-lg"
-        style={{ backgroundColor: "#f3f4f6", color: "#374151" }}
-      >
+      <a href={telLink} className={styles.outOfStockButton}>
         Уточнити наявність за телефоном
       </a>
     );
   }
 
   return (
-    <div className="mt-6 flex flex-col gap-3">
-      <a
-        href={viberLink}
-        className="block text-center py-3 px-6 rounded-lg text-white"
-        style={{ backgroundColor: "#7360f2" }}
-      >
+    <div className={styles.buttons}>
+      <a href={viberLink} className={styles.viberButton}>
         Купити через Viber
       </a>
-      <a
-        href={telLink}
-        className="block text-center py-3 px-6 rounded-lg"
-        style={{ backgroundColor: "#16a34a", color: "#ffffff" }}
-      >
+
+      <a href={telLink} className={styles.phoneButton}>
         Купити за телефоном
       </a>
     </div>
