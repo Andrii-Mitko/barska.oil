@@ -18,19 +18,19 @@
 .imageWrapper {
   position: relative;
   width: 100%;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 9 / 16;
   overflow: hidden;
   background-color: var(--color-cream);
 }
 
 .image {
   object-fit: contain;
-  padding: 20px;
+  padding: 0;
   transition: transform 300ms ease;
 }
 
 .card:hover .image {
-  transform: scale(1.04);
+  transform: scale(1.06);
 }
 
 .imagePlaceholder {
@@ -108,10 +108,6 @@
 }
 
 @media (min-width: 1200px) {
-  .image {
-    padding: 28px;
-  }
-
   .info {
     padding: 24px;
   }
