@@ -1,12 +1,20 @@
 import Link from "next/link";
 import styles from "./Header.module.css";
+import Image from "next/image";
 
 export default function Header() {
   return (
     <header className={styles.header}>
       <div className={`container ${styles.inner}`}>
         <Link href="/" className={styles.logo}>
-          Барська Олія
+          <Image
+            src="/logo.png"
+            alt="Барська Олія"
+            width={677}
+            height={369}
+            priority
+            className={styles.logoImage}
+          />
         </Link>
 
         <nav className={styles.nav}>

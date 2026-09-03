@@ -18,22 +18,18 @@
 }
 
 .logo {
-  font-family: var(--font-heading), serif;
-  font-size: 22px;
-  font-weight: 600;
-  color: var(--color-green);
+  display: flex;
+  align-items: center;
+}
+.logoImage {
+  height: 64px;
+  width: auto;
 }
 
 .nav {
   display: none;
   align-items: center;
   gap: 24px;
-}
-
-@media (min-width: 768px) {
-  .nav {
-    display: flex;
-  }
 }
 
 .navLink {
@@ -55,4 +51,19 @@
   border-radius: 8px;
   background-color: var(--color-green);
   color: var(--color-white);
+}
+
+@media (min-width: 768px) {
+  .nav {
+    display: flex;
+  }
+  .logoImage {
+    height: 80px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .logoImage {
+    height: 100px;
+  }
 }

@@ -36,8 +36,8 @@ export default function Footer() {
         <div>
           <h4 className={styles.subtitle}>Графік роботи</h4>
           <ul className={styles.list}>
-            <li>Пн–Пт: 10:00–18:00</li>
-            <li>Сб–Нд: вихідний</li>
+            <li>Пн–Нед: 08:00–17:00</li>
+            <li>Без вихідних та перерв</li>
           </ul>
 
           <h4 className={`${styles.subtitle} ${styles.listSecond}`}>
