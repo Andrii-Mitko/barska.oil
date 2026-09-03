@@ -14,7 +14,6 @@ export default function Footer() {
         <div>
           <h4 className={styles.subtitle}>Контакти</h4>
           <ul className={styles.list}>
-            <li>Микола Мітько</li>
             <li>
               <a href="tel:+380677407135">+380 (67) 740-71-35</a>
             </li>
