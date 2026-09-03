@@ -1,12 +1,12 @@
-import { Cormorant_Garamond, Source_Sans_3 } from "next/font/google";
+import { PT_Serif, Source_Sans_3 } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
 
-const headingFont = Cormorant_Garamond({
+const headingFont = PT_Serif({
   variable: "--font-heading",
   subsets: ["cyrillic", "latin"],
-  weight: ["500", "600", "700"],
+  weight: ["400", "700"],
 });
 
 const bodyFont = Source_Sans_3({
@@ -15,6 +15,8 @@ const bodyFont = Source_Sans_3({
   weight: ["400", "500", "600", "700"],
 });
 
+
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -22,7 +24,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="uk">
-      <body className={`${headingFont.variable} ${bodyFont.variable}`}>
+      <body
+        className={`${headingFont.variable} ${bodyFont.variable}`}
+      >
         <Header />
         <main>{children}</main>
         <Footer />
