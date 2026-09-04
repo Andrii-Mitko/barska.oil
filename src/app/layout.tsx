@@ -1,7 +1,7 @@
 import { PT_Serif, Source_Sans_3 } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Header/Header";
-import Footer from "@/components/Footer/Footer";
+import Header from "@/components/layout/Header/Header";
+import Footer from "@/components/layout/Footer/Footer";
 
 const headingFont = PT_Serif({
   variable: "--font-heading",
@@ -15,8 +15,6 @@ const bodyFont = Source_Sans_3({
   weight: ["400", "500", "600", "700"],
 });
 
-
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -24,9 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="uk">
-      <body
-        className={`${headingFont.variable} ${bodyFont.variable}`}
-      >
+      <body className={`${headingFont.variable} ${bodyFont.variable}`}>
         <Header />
         <main>{children}</main>
         <Footer />

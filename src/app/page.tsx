@@ -1,8 +1,7 @@
 import styles from "./page.module.css";
-import HeroSection from "@/components/HeroSection/HeroSection";
-import AboutSection from "@/components/AboutSection/AboutSection";
-import ProductsSection from "@/components/ProductsSection/ProductsSection";
-
+import HeroSection from "@/components/sections/HeroSection/HeroSection";
+import AboutSection from "@/components/sections/AboutSection/AboutSection";
+import ProductsSection from "@/components/sections/ProductsSection/ProductsSection";
 
 export default function Home() {
   return (
@@ -10,7 +9,6 @@ export default function Home() {
       <HeroSection />
       <AboutSection />
       <ProductsSection />
-     
     </div>
   );
 }

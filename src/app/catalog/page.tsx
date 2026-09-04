@@ -5,7 +5,7 @@ import { Category } from "@/models/Category";
 import { Product } from "@/models/Product";
 import type { ICategory } from "@/types/category";
 import type { IProduct } from "@/types/product";
-import ProductCard from "@/components/ProductCard/ProductCard";
+import ProductCard from "@/components/product/ProductCard/ProductCard";
 
 import styles from "./catalog.module.css";
 

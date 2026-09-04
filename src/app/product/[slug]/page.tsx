@@ -5,7 +5,7 @@ import { connectToDatabase } from "@/lib/db/mongodb";
 import { Product } from "@/models/Product";
 import type { ICategory } from "@/types/category";
 import type { IProduct } from "@/types/product";
-import BuyButton from "@/components/BuyButton/BuyButton";
+import BuyButton from "@/components/ui/BuyButton/BuyButton";
 
 import styles from "./product.module.css";
 

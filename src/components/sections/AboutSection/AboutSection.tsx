@@ -46,7 +46,10 @@ export default function AboutSection() {
               </div>
               <div>
                 <div className={styles.factLabel}>Графік роботи</div>
-                <div className={styles.factValue}>Пн–Пт, 10:00–18:00</div>
+                <ul className={styles.factValue}>
+                  <li>Пн–Нд: 08:00–17:00</li>
+                  <li>Без вихідних та перерв</li>
+                </ul>
               </div>
             </div>
           </div>
