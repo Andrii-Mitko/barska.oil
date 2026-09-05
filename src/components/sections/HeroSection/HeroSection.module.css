@@ -40,7 +40,9 @@
 }
 
 .title {
-  font-size: clamp(56px, 15vw, 100px);
+  width: 100%;
+  white-space: nowrap;
+  font-size: clamp(42px, 12vw, 100px);
   line-height: 0.9;
 }
 
