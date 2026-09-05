@@ -6,9 +6,43 @@ import { Product } from "@/models/Product";
 import type { ICategory } from "@/types/category";
 import type { IProduct } from "@/types/product";
 import BuyButton from "@/components/ui/BuyButton/BuyButton";
-
+import type { Metadata } from "next";
 import styles from "./product.module.css";
 import AddToCart from "@/components/product/AddToCart/AddToCart";
+
+interface ProductPageProps {
+  params: Promise<{ slug: string }>;
+}
+
+export async function generateMetadata({
+  params,
+}: ProductPageProps): Promise<Metadata> {
+  const { slug } = await params;
+
+  await connectToDatabase();
+
+  const product = (await Product.findOne({
+    slug,
+  }).lean()) as unknown as IProduct | null;
+
+  if (!product) {
+    return { title: "Товар не знайдено" };
+  }
+
+  const description = product.description
+    ? product.description
+    : `${product.name} — ${product.price} ₴. Гуртові ціни при більшій кількості. Доставка Новою Поштою.`;
+
+  return {
+    title: product.name,
+    description,
+    openGraph: {
+      title: product.name,
+      description,
+      images: product.images[0] ? [product.images[0]] : undefined,
+    },
+  };
+}
 
 interface ProductPageProps {
   params: Promise<{ slug: string }>;

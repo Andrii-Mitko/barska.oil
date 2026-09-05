@@ -6,8 +6,14 @@ import { Product } from "@/models/Product";
 import type { ICategory } from "@/types/category";
 import type { IProduct } from "@/types/product";
 import ProductCard from "@/components/product/ProductCard/ProductCard";
-
+import type { Metadata } from "next";
 import styles from "./catalog.module.css";
+
+export const metadata: Metadata = {
+  title: "Каталог",
+  description:
+    "Каталог соняшникової олії Барська Олія — рафінована та холодного пресування, різні об'єми, гуртові ціни.",
+};
 
 interface CatalogPageProps {
   searchParams: Promise<{ category?: string }>;

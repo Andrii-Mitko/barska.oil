@@ -1,36 +1,127 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Барська Олія — інтернет-магазин
 
-## Getting Started
+Інтернет-магазин соняшникової та ріпакової олії власного виробництва (м. Бар, Вінницька обл.). Каталог товарів, кошик з гуртовими цінами, оформлення заявки з надсиланням у Telegram та збереженням у MongoDB, і власна адмін-панель.
 
-First, run the development server:
+**Продакшн:** https://barskaoil.vercel.app
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Стек
+
+- **Next.js 15** (App Router) + **TypeScript**
+- **MongoDB** + **Mongoose** — без CMS, власна логіка
+- **Zod** — валідація форм і API
+- **CSS Modules** — стилі (без Tailwind)
+- **React Hook Form** — форма оформлення замовлення
+- **Cloudinary** — зберігання фото товарів, завантаження з адмінки
+- **Telegram Bot API** — сповіщення про нові заявки
+- Шрифти через `next/font/google`: PT Serif (заголовки), Source Sans 3 (текст), Roboto Mono (числа/ціни), Bad Script (навігація)
+
+## Основний функціонал
+
+### Публічна частина
+
+- Головна сторінка з інформацією про виробництво
+- Каталог з фільтром за категоріями (рафінована / холодного пресування / ріпакова)
+- Сторінка товару з гуртовими ціновими порогами (чим більше кількість — тим нижча ціна за штуку)
+- Кошик (localStorage, без бекенд-сесій) з автоматичним перерахунком за ціновими порогами
+- Оформлення заявки (ФІО, телефон, адреса доставки) — без онлайн-оплати
+- При оформленні: запис у MongoDB + компактне сповіщення в Telegram-групу
+
+### Адмін-панель (`/admin`)
+
+- Проста автентифікація (логін/пароль з `.env`, сесія в httpOnly cookie)
+- Перегляд заявок, зміна статусу (нова / оброблена / скасована)
+- Перегляд і редагування товарів: ціна, наявність, опис, фото (завантаження в Cloudinary)
+
+## Ціноутворення
+
+Гуртові ціни задані вручну по кожному товару в `src/lib/pricing/priceTiers.ts` — фіксовані ціни за штуку залежно від кількості в замовленні (а не відсоткові знижки). Приклад для олії 1 л рафінованої:
+
+| Кількість | Ціна за шт |
+| --------- | ---------- |
+| 1 шт      | 95 ₴       |
+| від 10 шт | 90 ₴       |
+| від 20 шт | 85 ₴       |
+| від 30 шт | 80 ₴       |
+
+## Структура проєкту
+
+```
+src/
+  app/
+    (site)/          # публічна частина (Header/Footer/CartProvider)
+      page.tsx
+      catalog/
+      product/[slug]/
+      cart/
+    (private)/
+      admin/          # адмінка (свій layout, без Header/Footer сайту)
+        login/
+        orders/
+        products/[id]/
+    api/
+      orders/
+      products/
+      admin/
+  components/
+    layout/           # Header, Footer
+    sections/         # HeroSection, AboutSection, ProductsSection
+    product/          # ProductCard, AddToCart
+    ui/               # BuyButton, BackButton
+    admin/            # OrderStatusSelect, ProductEditForm
+  models/             # Mongoose-схеми (Product, Category, Order)
+  types/              # TypeScript-інтерфейси
+  validations/        # Zod-схеми
+  lib/
+    db/               # підключення до MongoDB
+    pricing/          # цінові пороги
+    cloudinary/        # конфіг Cloudinary
+    telegram/         # відправка сповіщень
+  context/            # CartContext (React Context + useSyncExternalStore)
+  middleware.ts       # захист /admin і /api/admin
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Змінні середовища
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Створи `.env.local` у корені проєкту:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+MONGODB_URI=mongodb+srv://<user>:<password>@<cluster>/<dbname>?retryWrites=true&w=majority
 
-## Learn More
+TELEGRAM_BOT_TOKEN=
+TELEGRAM_CHAT_ID=
 
-To learn more about Next.js, take a look at the following resources:
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+ADMIN_LOGIN=
+ADMIN_PASSWORD=
+ADMIN_SESSION_SECRET=
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+`ADMIN_SESSION_SECRET` згенерувати командою:
 
-## Deploy on Vercel
+```bash
+node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+На Vercel ці ж змінні треба додати окремо в **Settings → Environment Variables** — `.env.local` не деплоїться разом із сайтом.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Встановлення та запуск
+
+```bash
+npm install
+npm run dev
+```
+
+Відкрий [http://localhost:3000](http://localhost:3000).
+
+## Дані товарів і категорій
+
+Товари та категорії керуються напряму через MongoDB Atlas (вручну або через адмінку `/admin/products`). Категорії: `sunflower-refined`, `sunflower-cold-pressed`, `rapeseed`.
+
+## Деплой
+
+Проєкт задеплоєний на [Vercel](https://vercel.com). Пуш у `main` гілку автоматично запускає новий деплой.
+
+
