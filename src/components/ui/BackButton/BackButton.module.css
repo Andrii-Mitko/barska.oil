@@ -1,0 +1,20 @@
+.backButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  color: var(--color-muted);
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.backButton:hover {
+  color: var(--color-green);
+}
+
+.arrow {
+  font-size: 16px;
+}

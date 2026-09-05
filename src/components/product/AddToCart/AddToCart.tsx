@@ -49,9 +49,13 @@ export default function AddToCart({
       <p className={styles.currentPrice}>{currentUnitPrice} ₴/шт</p>
 
       {nextTier && (
-        <p className={styles.discountHint}>
-          Від {nextTier.minQuantity} шт — {nextTier.pricePerUnit} ₴/шт
-        </p>
+        <div className={styles.nextTierBox}>
+          <span className={styles.nextTierIcon}>💰</span>
+          <span>
+            Від <strong>{nextTier.minQuantity} шт</strong> — вже{" "}
+            <strong>{nextTier.pricePerUnit} ₴/шт</strong>
+          </span>
+        </div>
       )}
 
       <div className={styles.controls}>
@@ -74,9 +78,13 @@ export default function AddToCart({
         </div>
 
         <button type="button" className={styles.addButton} onClick={handleAdd}>
-          {isAdded ? "Додано ✓" : `Додати до кошика за ${currentUnitPrice} ₴`}
+          {isAdded ? "Додано ✓" : "Додати в кошик"}
         </button>
       </div>
+
+      <p className={styles.totalPrice}>
+        Разом: <strong>{currentUnitPrice * quantity} ₴</strong>
+      </p>
     </div>
   );
 }

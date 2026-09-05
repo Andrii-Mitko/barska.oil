@@ -7,11 +7,6 @@
   border-top: 1px solid var(--color-border);
 }
 
-.boxInfo {
-  font-size: 13px;
-  color: var(--color-muted);
-}
-
 .controls {
   display: flex;
   align-items: center;
@@ -23,6 +18,13 @@
   display: flex;
   align-items: center;
   border: 1px solid var(--color-border);
+}
+
+.currentPrice {
+  font-family: var(--font-number), monospace;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--color-green-dark);
 }
 
 .quantityButton {
@@ -83,18 +85,36 @@
   background-color: var(--color-cream);
 }
 
-.discountBadge {
-  align-self: flex-start;
-  padding: 4px 10px;
-  background-color: var(--color-gold);
+.nextTierBox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  background-color: rgb(200 164 90 / 12%);
+  border: 1px solid var(--color-gold);
   color: var(--color-green-dark);
-  font-size: 13px;
-  font-weight: 600;
+  font-size: 15px;
 }
 
-.discountHint {
-  font-size: 13px;
-  color: var(--color-muted);
+.nextTierIcon {
+  font-size: 18px;
+}
+
+.nextTierBox strong {
+  color: var(--color-green-dark);
+  font-family: var(--font-number), monospace;
+  font-weight: 700;
+}
+
+.totalPrice {
+  font-size: 16px;
+  color: var(--color-text);
+}
+
+.totalPrice strong {
+  font-family: var(--font-number), monospace;
+  font-size: 20px;
+  color: var(--color-green-dark);
 }
 
 @media (min-width: 480px) {

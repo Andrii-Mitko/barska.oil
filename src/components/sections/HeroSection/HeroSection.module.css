@@ -23,7 +23,7 @@
 
 .heroContent {
   width: 100%;
-  max-width: 700px;
+  max-width: 900px;
   padding: 80px 20px;
   color: var(--color-white);
   text-align: center;
@@ -39,11 +39,10 @@
   text-transform: uppercase;
 }
 
-.title {
+.titleImage {
   width: 100%;
-  white-space: nowrap;
-  font-size: clamp(42px, 12vw, 100px);
-  line-height: 0.9;
+  max-width: 900px;
+  height: auto;
 }
 
 .subtitle {

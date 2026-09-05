@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
-
+import BackButton from "@/components/ui/BackButton/BackButton";
 import { connectToDatabase } from "@/lib/db/mongodb";
 import { Product } from "@/models/Product";
 import type { ICategory } from "@/types/category";
@@ -30,6 +30,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
   return (
     <main className={styles.productPage}>
       <div className={styles.container}>
+        <BackButton fallbackHref="/catalog" label="Назад до каталогу" />
         <div className={styles.product}>
           <div className={styles.imageWrapper}>
             {product.images[0] ? (

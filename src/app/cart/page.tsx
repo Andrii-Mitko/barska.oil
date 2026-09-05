@@ -11,6 +11,7 @@ import {
 } from "@/validations/checkout.schema";
 import styles from "./cart.module.css";
 import { calculateLineTotal } from "@/lib/pricing/priceTiers";
+import BackButton from "@/components/ui/BackButton/BackButton";
 
 export default function CartPage() {
   const { items, updateQuantity, removeItem, totalSum, clearCart } = useCart();
@@ -80,6 +81,7 @@ export default function CartPage() {
   return (
     <div className={styles.page}>
       <div className="container">
+        <BackButton fallbackHref="/catalog" label="Назад до каталогу" />
         <h1 className={styles.title}>Кошик</h1>
 
         <div className={styles.list}>
