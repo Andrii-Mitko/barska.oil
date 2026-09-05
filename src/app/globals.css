@@ -24,11 +24,17 @@ html {
 body {
   margin: 0;
   min-width: 320px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   background-color: var(--color-cream);
   color: var(--color-text);
   font-family: var(--font-body), sans-serif;
   font-size: 16px;
   line-height: 1.5;
+}
+main {
+  flex: 1 0 auto;
 }
 
 .numeric {
@@ -78,10 +84,6 @@ ol {
   margin: 0;
   padding: 0;
   list-style: none;
-}
-
-main {
-  min-height: 100vh;
 }
 
 .container {

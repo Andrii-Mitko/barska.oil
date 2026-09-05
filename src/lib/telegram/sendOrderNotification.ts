@@ -1,8 +1,18 @@
-interface OrderNotificationInput {
+import { calculateLineTotal, getShortLabel } from "@/lib/pricing/priceTiers";
+
+interface OrderNotificationItem {
+  productSlug: string;
   productName: string;
+  quantity: number;
+  pricePerUnit: number;
+}
+
+interface OrderNotificationInput {
   customerName: string;
   phone: string;
-  comment?: string;
+  deliveryAddress: string;
+  items: OrderNotificationItem[];
+  totalSum: number;
 }
 
 export async function sendOrderNotification(
@@ -16,15 +26,28 @@ export async function sendOrderNotification(
     return;
   }
 
+  const itemsList = input.items
+    .map((item) => {
+      const { unitPrice } = calculateLineTotal(
+        item.productSlug,
+        item.quantity,
+        item.pricePerUnit,
+      );
+      const label = getShortLabel(item.productSlug, item.productName);
+      return `${label} ${item.quantity}шт*${unitPrice}грн`;
+    })
+    .join("\n");
+
   const text = [
     "🛒 Нова заявка",
-    `Товар: ${input.productName}`,
-    `Ім'я: ${input.customerName}`,
-    `Телефон: ${input.phone}`,
-    input.comment ? `Коментар: ${input.comment}` : null,
-  ]
-    .filter(Boolean)
-    .join("\n");
+    `👤 ${input.customerName}`,
+    `📞 ${input.phone}`,
+    `📦 ${input.deliveryAddress}`,
+    "——",
+    itemsList,
+    "——",
+    `Всього: ${input.totalSum} грн`,
+  ].join("\n");
 
   const url = `https://api.telegram.org/bot${token}/sendMessage`;
 
@@ -32,13 +55,9 @@ export async function sendOrderNotification(
     await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        chat_id: chatId,
-        text,
-      }),
+      body: JSON.stringify({ chat_id: chatId, text }),
     });
   } catch (error) {
-    // Не блокуємо збереження заявки, якщо Telegram недоступний
     console.error("Помилка відправки в Telegram:", error);
   }
 }

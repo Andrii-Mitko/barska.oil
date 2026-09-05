@@ -31,6 +31,10 @@ const ProductSchema = new Schema<IProduct>(
       type: Number,
       required: true,
     },
+    unitsPerBox: {
+      type: Number,
+      required: true,
+    },
     price: {
       type: Number,
       required: true,

@@ -1,11 +1,19 @@
 import { z } from "zod";
 
-export const orderSchema = z.object({
-  productName: z.string().min(1),
+const orderItemSchema = z.object({
   productSlug: z.string().min(1),
-  customerName: z.string().min(2, "Введіть ім'я"),
+  productName: z.string().min(1),
+  quantity: z.coerce.number().int().min(1),
+  pricePerUnit: z.number().nonnegative(),
+});
+
+export const orderSchema = z.object({
+  customerName: z.string().min(2, "Введіть ім'я та прізвище"),
   phone: z.string().min(10, "Введіть коректний номер телефону"),
-  comment: z.string().optional(),
+  deliveryAddress: z
+    .string()
+    .min(5, "Вкажіть місто та номер відділення Нової Пошти"),
+  items: z.array(orderItemSchema).min(1, "Кошик порожній"),
 });
 
 export type OrderInput = z.infer<typeof orderSchema>;

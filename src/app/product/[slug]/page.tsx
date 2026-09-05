@@ -6,9 +6,9 @@ import { Product } from "@/models/Product";
 import type { ICategory } from "@/types/category";
 import type { IProduct } from "@/types/product";
 import BuyButton from "@/components/ui/BuyButton/BuyButton";
-import OrderForm from "@/components/product/OrderForm/OrderForm";
 
 import styles from "./product.module.css";
+import AddToCart from "@/components/product/AddToCart/AddToCart";
 
 interface ProductPageProps {
   params: Promise<{ slug: string }>;
@@ -74,9 +74,12 @@ export default async function ProductPage({ params }: ProductPageProps) {
             </div>
 
             <div className={styles.orderForm}>
-              <OrderForm
-                productName={product.name}
+              <AddToCart
                 productSlug={product.slug}
+                productName={product.name}
+                pricePerUnit={product.price}
+                inStock={product.inStock}
+                image={product.images[0]}
               />
             </div>
           </div>

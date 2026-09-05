@@ -3,6 +3,7 @@ import { connectToDatabase } from "@/lib/db/mongodb";
 import { Order } from "@/models/Order";
 import { orderSchema } from "@/validations/order.schema";
 import { sendOrderNotification } from "@/lib/telegram/sendOrderNotification";
+import { calculateLineTotal } from "@/lib/pricing/priceTiers";
 
 export async function POST(request: Request) {
   try {
@@ -16,15 +17,25 @@ export async function POST(request: Request) {
       );
     }
 
+    const totalSum = parsed.data.items.reduce((sum, item) => {
+      const { total } = calculateLineTotal(
+        item.productSlug,
+        item.quantity,
+        item.pricePerUnit,
+      );
+      return sum + total;
+    }, 0);
+
     await connectToDatabase();
 
-    const order = await Order.create(parsed.data);
+    const order = await Order.create({ ...parsed.data, totalSum });
 
     await sendOrderNotification({
-      productName: parsed.data.productName,
       customerName: parsed.data.customerName,
       phone: parsed.data.phone,
-      comment: parsed.data.comment,
+      deliveryAddress: parsed.data.deliveryAddress,
+      items: parsed.data.items,
+      totalSum,
     });
 
     return NextResponse.json({ order }, { status: 201 });

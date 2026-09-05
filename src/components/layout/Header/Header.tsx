@@ -1,8 +1,14 @@
+"use client";
+
 import Link from "next/link";
-import styles from "./Header.module.css";
 import Image from "next/image";
+import { ShoppingCart } from "lucide-react";
+import { useCart } from "@/context/CartContext";
+import styles from "./Header.module.css";
 
 export default function Header() {
+  const { totalItems } = useCart();
+
   return (
     <header className={styles.header}>
       <div className={`container ${styles.inner}`}>
@@ -35,9 +41,18 @@ export default function Header() {
           </Link>
         </nav>
 
-        <a href="tel:+380677407135" className={styles.phoneButton}>
-          +380 67 740 71 35
-        </a>
+        <div className={styles.actions}>
+          <Link href="/cart" className={styles.cartLink}>
+            <ShoppingCart size={22} />
+            {totalItems > 0 && (
+              <span className={styles.cartBadge}>{totalItems}</span>
+            )}
+          </Link>
+
+          <a href="tel:+380677407135" className={styles.phoneButton}>
+            +380 67 740 71 35
+          </a>
+        </div>
       </div>
     </header>
   );

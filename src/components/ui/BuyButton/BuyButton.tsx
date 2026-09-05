@@ -6,6 +6,10 @@ interface BuyButtonProps {
 }
 
 export default function BuyButton({ productName, inStock }: BuyButtonProps) {
+  if (!inStock) {
+    return null;
+  }
+
   const phone = "380677407135";
 
   const message = encodeURIComponent(
@@ -14,14 +18,6 @@ export default function BuyButton({ productName, inStock }: BuyButtonProps) {
 
   const viberLink = `viber://chat?number=%2B${phone}&text=${message}`;
   const telLink = `tel:+${phone}`;
-
-  if (!inStock) {
-    return (
-      <a href={telLink} className={styles.outOfStockButton}>
-        Уточнити наявність за телефоном
-      </a>
-    );
-  }
 
   return (
     <div className={styles.buttons}>

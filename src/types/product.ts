@@ -10,6 +10,7 @@ export interface IProduct {
   category: Types.ObjectId;
   pressType: PressType;
   volumeMl: number;
+  unitsPerBox: number;
   price: number;
   inStock: boolean;
   images: string[];

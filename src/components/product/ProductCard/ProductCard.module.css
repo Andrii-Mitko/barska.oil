@@ -65,14 +65,52 @@
   font-size: 15px;
 }
 
-.footer {
+.priceTiers {
+  margin-top: 14px;
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.priceTierRow {
+  display: flex;
+  align-items: baseline;
   justify-content: space-between;
-  gap: 10px;
-  margin-top: auto;
-  padding-top: 20px;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.priceTierRow:first-child .priceTierValue {
+  color: var(--color-green-dark);
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.priceTierRow:first-child .priceTierLabel {
+  color: var(--color-muted);
+}
+
+.priceTierRow:not(:first-child) {
+  padding-top: 2px;
+  border-top: 1px dashed var(--color-border);
+}
+
+.priceTierLabel {
+  color: var(--color-muted);
+}
+
+.priceTierValue {
+  font-family: var(--font-number), monospace;
+  font-weight: 600;
+  color: var(--color-green-dark);
+}
+
+.priceTierRow:last-child .priceTierValue {
+  color: var(--color-gold);
+}
+
+.footer {
+  margin-top: 14px;
 }
 
 .price {
@@ -81,6 +119,11 @@
   font-size: 30px;
   font-weight: 600;
   line-height: 1;
+}
+
+.status {
+  margin-top: auto;
+  padding-top: 16px;
 }
 
 .inStock,
@@ -95,6 +138,32 @@
 
 .outOfStock {
   color: #a33229;
+}
+
+.inStock,
+.outOfStock {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.inStock {
+  color: var(--color-green);
+}
+
+.outOfStock {
+  color: #a33229;
+}
+
+.priceBadge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 6px 12px;
+  background-color: var(--color-gold);
+  color: var(--color-green-dark);
+  font-size: 13px;
+  font-weight: 700;
+  z-index: 1;
 }
 
 @media (min-width: 600px) {

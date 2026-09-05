@@ -53,6 +53,42 @@
   color: var(--color-white);
 }
 
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.cartLink {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text);
+}
+
+.cartLink:hover {
+  color: var(--color-green);
+}
+
+.cartBadge {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background-color: var(--color-green);
+  color: var(--color-white);
+  font-family: var(--font-number), monospace;
+  font-size: 11px;
+  font-weight: 600;
+}
+
 @media (min-width: 768px) {
   .nav {
     display: flex;
