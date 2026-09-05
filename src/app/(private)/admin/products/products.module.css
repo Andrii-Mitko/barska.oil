@@ -59,3 +59,22 @@
 .editLink:hover {
   text-decoration: underline;
 }
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.addButton {
+  padding: 10px 20px;
+  background-color: var(--color-green);
+  color: var(--color-white);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.addButton:hover {
+  background-color: var(--color-green-dark);
+}

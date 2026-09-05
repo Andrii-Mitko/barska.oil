@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { connectToDatabase } from "@/lib/db/mongodb";
 import { Product } from "@/models/Product";
 import { productUpdateSchema } from "@/validations/productUpdate.schema";
+import { productCreateSchema } from "@/validations/productCreate.schema";
 
 export async function PATCH(
   request: Request,
@@ -27,6 +28,26 @@ export async function PATCH(
     console.error(error);
     return NextResponse.json(
       { error: "Помилка оновлення товару" },
+      { status: 500 },
+    );
+  }
+}
+
+export async function DELETE(
+  request: Request,
+  { params }: { params: Promise<{ id: string }> },
+) {
+  try {
+    const { id } = await params;
+
+    await connectToDatabase();
+    await Product.findByIdAndDelete(id);
+
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json(
+      { error: "Помилка видалення товару" },
       { status: 500 },
     );
   }

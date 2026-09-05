@@ -92,3 +92,32 @@
   color: var(--color-green);
   font-size: 14px;
 }
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.header .title {
+  margin-bottom: 0;
+}
+
+.deleteButton {
+  padding: 8px 16px;
+  border: 1px solid #a33229;
+  background-color: transparent;
+  color: #a33229;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.deleteButton:hover {
+  background-color: rgb(163 50 41 / 8%);
+}
+
+.deleteButton:disabled {
+  opacity: 0.6;
+}

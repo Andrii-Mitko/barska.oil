@@ -3,6 +3,7 @@ import Link from "next/link";
 import { connectToDatabase } from "@/lib/db/mongodb";
 import { Product } from "@/models/Product";
 import type { IProduct } from "@/types/product";
+
 import styles from "./products.module.css";
 
 export default async function AdminProductsPage() {
@@ -14,7 +15,12 @@ export default async function AdminProductsPage() {
 
   return (
     <div>
-      <h1 className={styles.title}>Товари ({products.length})</h1>
+      <div className={styles.header}>
+        <h1 className={styles.title}>Товари ({products.length})</h1>
+        <Link href="/admin/products/new" className={styles.addButton}>
+          + Додати товар
+        </Link>
+      </div>
 
       <table className={styles.table}>
         <thead>
@@ -53,7 +59,7 @@ export default async function AdminProductsPage() {
                   {product.inStock ? "В наявності" : "Немає"}
                 </span>
               </td>
-              <td>
+              <td style={{ display: "flex", gap: 12 }}>
                 <Link
                   href={`/admin/products/${product._id}`}
                   className={styles.editLink}

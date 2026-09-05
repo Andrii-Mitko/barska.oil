@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import type { IProduct } from "@/types/product";
 import styles from "./ProductEditForm.module.css";
@@ -10,6 +11,7 @@ interface ProductEditFormProps {
 }
 
 export default function ProductEditForm({ product }: ProductEditFormProps) {
+  const router = useRouter();
   const [price, setPrice] = useState(product.price);
   const [inStock, setInStock] = useState(product.inStock);
   const [description, setDescription] = useState(product.description ?? "");
@@ -17,6 +19,7 @@ export default function ProductEditForm({ product }: ProductEditFormProps) {
   const [isUploading, setIsUploading] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -67,9 +70,40 @@ export default function ProductEditForm({ product }: ProductEditFormProps) {
     }
   };
 
+  const handleDelete = async () => {
+    const confirmed = window.confirm(
+      `Видалити товар "${product.name}"? Це незворотньо.`,
+    );
+    if (!confirmed) return;
+
+    setIsDeleting(true);
+
+    try {
+      await fetch(`/api/admin/products/${product._id}`, {
+        method: "DELETE",
+      });
+
+      router.push("/admin/products");
+      router.refresh();
+    } catch (error) {
+      console.error(error);
+      setIsDeleting(false);
+    }
+  };
+
   return (
     <div>
-      <h1 className={styles.title}>{product.name}</h1>
+      <div className={styles.header}>
+        <h1 className={styles.title}>{product.name}</h1>
+        <button
+          type="button"
+          className={styles.deleteButton}
+          onClick={handleDelete}
+          disabled={isDeleting}
+        >
+          {isDeleting ? "Видалення..." : "Видалити товар"}
+        </button>
+      </div>
 
       <div className={styles.readonlyRow}>
         <span>SKU: {product.sku}</span>
