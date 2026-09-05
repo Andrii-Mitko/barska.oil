@@ -9,6 +9,8 @@ import ProductCard from "@/components/product/ProductCard/ProductCard";
 import type { Metadata } from "next";
 import styles from "./catalog.module.css";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Каталог",
   description:

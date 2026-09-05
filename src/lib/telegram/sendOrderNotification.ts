@@ -1,5 +1,3 @@
-import { calculateLineTotal, getShortLabel } from "@/lib/pricing/priceTiers";
-
 interface OrderNotificationItem {
   productSlug: string;
   productName: string;
@@ -27,15 +25,10 @@ export async function sendOrderNotification(
   }
 
   const itemsList = input.items
-    .map((item) => {
-      const { unitPrice } = calculateLineTotal(
-        item.productSlug,
-        item.quantity,
-        item.pricePerUnit,
-      );
-      const label = getShortLabel(item.productSlug, item.productName);
-      return `${label} ${item.quantity}шт*${unitPrice}грн`;
-    })
+    .map(
+      (item) =>
+        `${item.productName} ${item.quantity}шт*${item.pricePerUnit}грн`,
+    )
     .join("\n");
 
   const text = [

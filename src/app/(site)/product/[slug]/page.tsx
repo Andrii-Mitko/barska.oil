@@ -10,6 +10,8 @@ import type { Metadata } from "next";
 import styles from "./product.module.css";
 import AddToCart from "@/components/product/AddToCart/AddToCart";
 
+export const dynamic = "force-dynamic";
+
 interface ProductPageProps {
   params: Promise<{ slug: string }>;
 }

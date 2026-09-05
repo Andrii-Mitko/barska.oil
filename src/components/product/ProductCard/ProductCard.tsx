@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 
 import type { IProduct } from "@/types/product";
-import { getPriceTiers } from "@/lib/pricing/priceTiers";
 
 import styles from "./ProductCard.module.css";
 
@@ -11,9 +10,6 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
-  const priceTiers = getPriceTiers(product.slug);
-  const lowestPrice = priceTiers?.[priceTiers.length - 1]?.pricePerUnit;
-
   return (
     <Link href={`/product/${product.slug}`} className={styles.card}>
       <div className={styles.imageWrapper}>
@@ -28,10 +24,6 @@ export default function ProductCard({ product }: ProductCardProps) {
         ) : (
           <div className={styles.imagePlaceholder}>Немає зображення</div>
         )}
-
-        {product.inStock && lowestPrice && (
-          <span className={styles.priceBadge}>від {lowestPrice} ₴/шт</span>
-        )}
       </div>
 
       <div className={styles.info}>
@@ -39,31 +31,9 @@ export default function ProductCard({ product }: ProductCardProps) {
 
         <span className={styles.volume}>{product.volumeMl} мл</span>
 
-        {product.inStock && priceTiers ? (
-          <ul className={styles.priceTiers}>
-            {priceTiers.map((tier, index) => {
-              const nextTier = priceTiers[index + 1];
-              const rangeLabel = nextTier
-                ? tier.minQuantity === 1
-                  ? `за 1 шт`
-                  : `від ${tier.minQuantity} шт`
-                : `від ${tier.minQuantity} шт і більше`;
-
-              return (
-                <li key={tier.minQuantity} className={styles.priceTierRow}>
-                  <span className={styles.priceTierLabel}>{rangeLabel}</span>
-                  <span className={styles.priceTierValue}>
-                    {tier.pricePerUnit} ₴
-                  </span>
-                </li>
-              );
-            })}
-          </ul>
-        ) : (
-          <div className={styles.footer}>
-            <span className={styles.price}>{product.price} ₴</span>
-          </div>
-        )}
+        <div className={styles.footer}>
+          <span className={styles.price}>{product.price} ₴</span>
+        </div>
 
         <div className={styles.status}>
           <span

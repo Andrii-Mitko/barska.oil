@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { connectToDatabase } from "@/lib/db/mongodb";
 import { Product } from "@/models/Product";
 import { productUpdateSchema } from "@/validations/productUpdate.schema";
-import { productCreateSchema } from "@/validations/productCreate.schema";
+import { revalidatePath } from "next/cache";
 
 export async function PATCH(
   request: Request,
@@ -14,6 +14,10 @@ export async function PATCH(
     const parsed = productUpdateSchema.safeParse(body);
 
     if (!parsed.success) {
+      console.error(
+        "Validation error:",
+        JSON.stringify(parsed.error.flatten(), null, 2),
+      );
       return NextResponse.json(
         { error: "Некоректні дані", details: parsed.error.flatten() },
         { status: 400 },
@@ -21,7 +25,16 @@ export async function PATCH(
     }
 
     await connectToDatabase();
-    await Product.findByIdAndUpdate(id, parsed.data);
+    const updatedProduct = await Product.findByIdAndUpdate(id, parsed.data, {
+      new: true,
+    });
+
+    if (!updatedProduct) {
+      return NextResponse.json({ error: "Товар не знайдено" }, { status: 404 });
+    }
+
+    revalidatePath("/catalog");
+    revalidatePath(`/product/${updatedProduct.slug}`);
 
     return NextResponse.json({ success: true });
   } catch (error) {

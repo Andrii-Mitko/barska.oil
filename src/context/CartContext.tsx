@@ -8,7 +8,6 @@ import {
 } from "react";
 import { cartStore } from "@/lib/cart/cartStore";
 import type { CartItem } from "@/types/cart";
-import { calculateLineTotal } from "@/lib/pricing/priceTiers";
 
 interface CartContextValue {
   items: CartItem[];
@@ -29,14 +28,10 @@ export function CartProvider({ children }: { children: ReactNode }) {
     cartStore.getServerSnapshot,
   );
 
-  const totalSum = items.reduce((sum, item) => {
-    const { total } = calculateLineTotal(
-      item.productSlug,
-      item.quantity,
-      item.pricePerUnit,
-    );
-    return sum + total;
-  }, 0);
+  const totalSum = items.reduce(
+    (sum, item) => sum + item.pricePerUnit * item.quantity,
+    0,
+  );
 
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
 

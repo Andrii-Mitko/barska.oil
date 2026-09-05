@@ -10,7 +10,6 @@ import {
   type CheckoutInput,
 } from "@/validations/checkout.schema";
 import styles from "./cart.module.css";
-import { calculateLineTotal } from "@/lib/pricing/priceTiers";
 import BackButton from "@/components/ui/BackButton/BackButton";
 
 export default function CartPage() {
@@ -86,17 +85,13 @@ export default function CartPage() {
 
         <div className={styles.list}>
           {items.map((item) => {
-            const { unitPrice, total } = calculateLineTotal(
-              item.productSlug,
-              item.quantity,
-              item.pricePerUnit,
-            );
+            const subtotal = item.pricePerUnit * item.quantity;
 
             return (
               <div key={item.productSlug} className={styles.item}>
                 <div className={styles.itemInfo}>
                   <p className={styles.itemName}>{item.productName}</p>
-                  <p className={styles.itemMeta}>{unitPrice} ₴/шт</p>
+                  <p className={styles.itemMeta}>{item.pricePerUnit} ₴/шт</p>
                 </div>
 
                 <div className={styles.itemControls}>
@@ -127,7 +122,7 @@ export default function CartPage() {
                     </button>
                   </div>
 
-                  <p className={styles.subtotal}>{total} ₴</p>
+                  <p className={styles.subtotal}>{subtotal} ₴</p>
 
                   <button
                     type="button"

@@ -3,7 +3,6 @@ import { connectToDatabase } from "@/lib/db/mongodb";
 import { Order } from "@/models/Order";
 import { orderSchema } from "@/validations/order.schema";
 import { sendOrderNotification } from "@/lib/telegram/sendOrderNotification";
-import { calculateLineTotal } from "@/lib/pricing/priceTiers";
 
 export async function POST(request: Request) {
   try {
@@ -17,14 +16,10 @@ export async function POST(request: Request) {
       );
     }
 
-    const totalSum = parsed.data.items.reduce((sum, item) => {
-      const { total } = calculateLineTotal(
-        item.productSlug,
-        item.quantity,
-        item.pricePerUnit,
-      );
-      return sum + total;
-    }, 0);
+    const totalSum = parsed.data.items.reduce(
+      (sum, item) => sum + item.pricePerUnit * item.quantity,
+      0,
+    );
 
     await connectToDatabase();
 

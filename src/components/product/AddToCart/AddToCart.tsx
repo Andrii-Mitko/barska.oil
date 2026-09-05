@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useCart } from "@/context/CartContext";
-import { getUnitPrice, getNextTier } from "@/lib/pricing/priceTiers";
 import styles from "./AddToCart.module.css";
 
 interface AddToCartProps {
@@ -24,9 +23,6 @@ export default function AddToCart({
   const [quantity, setQuantity] = useState(1);
   const [isAdded, setIsAdded] = useState(false);
 
-  const currentUnitPrice = getUnitPrice(productSlug, quantity, pricePerUnit);
-  const nextTier = getNextTier(productSlug, quantity);
-
   const handleAdd = () => {
     addItem({ productSlug, productName, pricePerUnit, quantity, image });
     setIsAdded(true);
@@ -46,17 +42,7 @@ export default function AddToCart({
 
   return (
     <div className={styles.wrapper}>
-      <p className={styles.currentPrice}>{currentUnitPrice} ₴/шт</p>
-
-      {nextTier && (
-        <div className={styles.nextTierBox}>
-          <span className={styles.nextTierIcon}>💰</span>
-          <span>
-            Від <strong>{nextTier.minQuantity} шт</strong> — вже{" "}
-            <strong>{nextTier.pricePerUnit} ₴/шт</strong>
-          </span>
-        </div>
-      )}
+      <p className={styles.currentPrice}>{pricePerUnit} ₴/шт</p>
 
       <div className={styles.controls}>
         <div className={styles.quantity}>
@@ -83,7 +69,7 @@ export default function AddToCart({
       </div>
 
       <p className={styles.totalPrice}>
-        Разом: <strong>{currentUnitPrice * quantity} ₴</strong>
+        Разом: <strong>{pricePerUnit * quantity} ₴</strong>
       </p>
     </div>
   );
