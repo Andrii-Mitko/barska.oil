@@ -117,6 +117,13 @@
   margin-top: 32px;
 }
 
+.orderForm {
+  width: 100%;
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--color-border);
+}
+
 @media (min-width: 768px) {
   .productPage {
     padding-top: 80px;

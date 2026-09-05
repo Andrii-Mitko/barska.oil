@@ -6,6 +6,7 @@ import { Product } from "@/models/Product";
 import type { ICategory } from "@/types/category";
 import type { IProduct } from "@/types/product";
 import BuyButton from "@/components/ui/BuyButton/BuyButton";
+import OrderForm from "@/components/product/OrderForm/OrderForm";
 
 import styles from "./product.module.css";
 
@@ -70,6 +71,13 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
             <div className={styles.buy}>
               <BuyButton productName={product.name} inStock={product.inStock} />
+            </div>
+
+            <div className={styles.orderForm}>
+              <OrderForm
+                productName={product.name}
+                productSlug={product.slug}
+              />
             </div>
           </div>
         </div>
