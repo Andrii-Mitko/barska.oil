@@ -1,0 +1,61 @@
+.title {
+  color: var(--color-green-dark);
+  font-size: 28px;
+  margin-bottom: 24px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--color-white);
+}
+
+.table th {
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 13px;
+  color: var(--color-muted);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+.thumb {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  background-color: var(--color-cream);
+}
+
+.name {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.price {
+  font-family: var(--font-number), monospace;
+}
+
+.inStock {
+  color: var(--color-green);
+  font-weight: 600;
+}
+
+.outOfStock {
+  color: #a33229;
+  font-weight: 600;
+}
+
+.editLink {
+  color: var(--color-green);
+  font-weight: 600;
+}
+
+.editLink:hover {
+  text-decoration: underline;
+}

@@ -18,16 +18,7 @@ export default function HeroSection() {
       <div className={styles.heroContent}>
         <p className={styles.eyebrow}>ВЛАСНЕ ВИРОБНИЦТВО · БАР</p>
 
-        <h1 className={styles.titleWrapper}>
-          <Image
-            src="/images/title.png"
-            alt="Барська Олія"
-            width={869}
-            height={287}
-            priority
-            className={styles.titleImage}
-          />
-        </h1>
+        <h1 className={styles.title}>Барська Олія</h1>
 
         <p className={styles.subtitle}>Соняшникова олія власного виробництва</p>
 

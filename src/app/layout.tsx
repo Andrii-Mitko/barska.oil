@@ -1,8 +1,10 @@
-import { PT_Serif, Source_Sans_3, Roboto_Mono } from "next/font/google";
+import {
+  PT_Serif,
+  Source_Sans_3,
+  Roboto_Mono,
+  Bad_Script,
+} from "next/font/google";
 import "./globals.css";
-import { CartProvider } from "@/context/CartContext";
-import Header from "@/components/layout/Header/Header";
-import Footer from "@/components/layout/Footer/Footer";
 
 const headingFont = PT_Serif({
   variable: "--font-heading",
@@ -22,6 +24,12 @@ const numberFont = Roboto_Mono({
   weight: ["500", "600", "700"],
 });
 
+const navFont = Bad_Script({
+  variable: "--font-nav",
+  subsets: ["cyrillic", "latin"],
+  weight: ["400"],
+});
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -30,13 +38,9 @@ export default function RootLayout({
   return (
     <html lang="uk">
       <body
-        className={`${headingFont.variable} ${bodyFont.variable} ${numberFont.variable}`}
+        className={`${headingFont.variable} ${bodyFont.variable} ${numberFont.variable} ${navFont.variable}`}
       >
-        <CartProvider>
-          <Header />
-          <main>{children}</main>
-          <Footer />
-        </CartProvider>
+        {children}
       </body>
     </html>
   );

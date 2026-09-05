@@ -7,6 +7,15 @@
   color: var(--color-cream);
 }
 
+.logo {
+  display: flex;
+  align-items: center;
+}
+.logoImage {
+  height: 94px;
+  width: auto;
+}
+
 .grid {
   display: grid;
   grid-template-columns: 1fr;

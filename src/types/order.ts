@@ -1,9 +1,9 @@
 export type OrderStatus = "new" | "processed" | "cancelled";
 
 export interface OrderItem {
+  productSlug: string;
   productName: string;
-  boxQuantity: number;
-  unitsPerBox: number;
+  quantity: number;
   pricePerUnit: number;
 }
 

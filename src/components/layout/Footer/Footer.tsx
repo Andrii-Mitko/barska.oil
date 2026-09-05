@@ -1,11 +1,22 @@
+import Link from "next/link";
 import styles from "./Footer.module.css";
+import Image from "next/image";
 
 export default function Footer() {
   return (
     <footer id="contacts" className={styles.footer}>
       <div className={`container ${styles.grid}`}>
         <div>
-          <h3 className={styles.title}>Барська Олія</h3>
+          <Link href="/" className={styles.logo}>
+            <Image
+              src="/logo.png"
+              alt="Барська Олія"
+              width={677}
+              height={369}
+              priority
+              className={styles.logoImage}
+            />
+          </Link>
           <p className={styles.description}>
             Виробник соняшникової та ріпакової олії. м. Бар, Вінницька обл.
           </p>

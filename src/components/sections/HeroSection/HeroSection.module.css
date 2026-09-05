@@ -39,10 +39,9 @@
   text-transform: uppercase;
 }
 
-.titleImage {
-  width: 100%;
-  max-width: 900px;
-  height: auto;
+.title {
+  font-size: clamp(56px, 15vw, 100px);
+  line-height: 0.9;
 }
 
 .subtitle {
