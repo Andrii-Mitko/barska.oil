@@ -60,7 +60,7 @@ export default function ProductCreateForm() {
 
       <div className={styles.field}>
         <label className={styles.label} htmlFor="sku">
-          SKU
+          Артікул
         </label>
         <input id="sku" className={styles.input} {...register("sku")} />
         {errors.sku && (
@@ -70,7 +70,7 @@ export default function ProductCreateForm() {
 
       <div className={styles.field}>
         <label className={styles.label} htmlFor="name">
-          Назва
+          Назва товару
         </label>
         <input id="name" className={styles.input} {...register("name")} />
         {errors.name && (
@@ -140,6 +140,22 @@ export default function ProductCreateForm() {
         />
         {errors.volumeMl && (
           <span className={styles.error}>{errors.volumeMl.message}</span>
+        )}
+      </div>
+
+      <div className={styles.field}>
+        <label className={styles.label} htmlFor="unitsPerBox">
+          Штук в ящику (необов&apos;язково)
+        </label>
+        <input
+          id="unitsPerBox"
+          type="number"
+          className={styles.input}
+          placeholder="1"
+          {...register("unitsPerBox")}
+        />
+        {errors.unitsPerBox && (
+          <span className={styles.error}>{errors.unitsPerBox.message}</span>
         )}
       </div>
 

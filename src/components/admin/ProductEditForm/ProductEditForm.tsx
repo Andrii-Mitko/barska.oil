@@ -14,6 +14,7 @@ export default function ProductEditForm({ product }: ProductEditFormProps) {
   const router = useRouter();
   const [price, setPrice] = useState(product.price);
   const [inStock, setInStock] = useState(product.inStock);
+  const [unitsPerBox, setUnitsPerBox] = useState(product.unitsPerBox ?? 1);
   const [description, setDescription] = useState(product.description ?? "");
   const [images, setImages] = useState<string[]>(product.images);
   const [isUploading, setIsUploading] = useState(false);
@@ -59,7 +60,13 @@ export default function ProductEditForm({ product }: ProductEditFormProps) {
       await fetch(`/api/admin/products/${product._id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ price, inStock, description, images }),
+        body: JSON.stringify({
+          price,
+          inStock,
+          unitsPerBox,
+          description,
+          images,
+        }),
       });
 
       setIsSaved(true);
@@ -106,7 +113,7 @@ export default function ProductEditForm({ product }: ProductEditFormProps) {
       </div>
 
       <div className={styles.readonlyRow}>
-        <span>SKU: {product.sku}</span>
+        <span>Артікул: {product.sku}</span>
         <span>Об&apos;єм: {product.volumeMl} мл</span>
         <span>Slug: {product.slug}</span>
       </div>
@@ -149,6 +156,19 @@ export default function ProductEditForm({ product }: ProductEditFormProps) {
             className={styles.input}
             value={price}
             onChange={(event) => setPrice(Number(event.target.value))}
+          />
+        </div>
+
+        <div className={styles.field}>
+          <label className={styles.label} htmlFor="unitsPerBox">
+            Штук в ящику
+          </label>
+          <input
+            id="unitsPerBox"
+            type="number"
+            className={styles.input}
+            value={unitsPerBox}
+            onChange={(event) => setUnitsPerBox(Number(event.target.value))}
           />
         </div>
 

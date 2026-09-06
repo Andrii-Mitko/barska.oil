@@ -9,10 +9,19 @@ interface ProductCardProps {
   product: IProduct;
 }
 
+function formatVolume(volumeMl: number): string {
+  const liters = volumeMl / 1000;
+  return `${liters % 1 === 0 ? liters : liters.toFixed(1)} Л`;
+}
+
 export default function ProductCard({ product }: ProductCardProps) {
   return (
     <Link href={`/product/${product.slug}`} className={styles.card}>
       <div className={styles.imageWrapper}>
+        <span className={styles.volumeSeal}>
+          {formatVolume(product.volumeMl)}
+        </span>
+
         {product.images[0] ? (
           <Image
             src={product.images[0]}
@@ -24,23 +33,20 @@ export default function ProductCard({ product }: ProductCardProps) {
         ) : (
           <div className={styles.imagePlaceholder}>Немає зображення</div>
         )}
+
+        {!product.inStock && (
+          <div className={styles.outOfStockOverlay}>
+            <span className={styles.outOfStockLabel}>Тимчасово немає</span>
+          </div>
+        )}
       </div>
 
       <div className={styles.info}>
         <h3 className={styles.name}>{product.name}</h3>
 
-        <span className={styles.volume}>{product.volumeMl} мл</span>
-
         <div className={styles.footer}>
           <span className={styles.price}>{product.price} ₴</span>
-        </div>
-
-        <div className={styles.status}>
-          <span
-            className={product.inStock ? styles.inStock : styles.outOfStock}
-          >
-            {product.inStock ? "В наявності" : "Немає в наявності"}
-          </span>
+          <span className={styles.priceCaption}>за пляшку</span>
         </div>
       </div>
     </Link>

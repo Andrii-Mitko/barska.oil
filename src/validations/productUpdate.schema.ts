@@ -3,6 +3,7 @@ import { z } from "zod";
 export const productUpdateSchema = z.object({
   price: z.coerce.number().nonnegative(),
   inStock: z.boolean(),
+  unitsPerBox: z.coerce.number().int().positive().optional(),
   description: z.string().optional(),
   images: z
     .array(z.string())
