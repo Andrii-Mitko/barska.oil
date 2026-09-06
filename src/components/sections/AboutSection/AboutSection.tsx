@@ -10,9 +10,9 @@ export default function AboutSection() {
             <Image
               src="/images/production.webp"
               alt="Виробництво Барської Олії у місті Бар"
-              width={800}
-              height={600}
+              fill
               className={styles.image}
+              sizes="(min-width: 900px) 50vw, 100vw"
             />
           </div>
 

@@ -1,0 +1,38 @@
+.showcase {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 21 / 9;
+  overflow: hidden;
+}
+
+.image {
+  object-fit: cover;
+  object-position: center bottom;
+  transition: transform 400ms ease;
+}
+
+.showcase:hover .image {
+  transform: scale(1.03);
+}
+
+.cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 18px;
+  padding-bottom: 18px;
+  background-color: var(--color-gold);
+  color: var(--color-green-dark);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.cta:hover {
+  background-color: var(--color-gold-light);
+}

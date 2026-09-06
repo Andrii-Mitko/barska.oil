@@ -4,33 +4,35 @@ import styles from "./HeroSection.module.css";
 export default function HeroSection() {
   return (
     <section className={styles.hero}>
-      <Image
-        className={styles.heroImage}
-        src="/images/production.webp"
-        alt="Виробництво Барської Олії"
-        fill
-        priority
-        sizes="100vw"
-      />
-
-      <div className={styles.heroOverlay} />
-
-      <div className={styles.heroContent}>
-        <p className={styles.eyebrow}>ВЛАСНЕ ВИРОБНИЦТВО · БАР</p>
+      <div className={styles.content}>
+        <span className={styles.stamp}>Власне виробництво · Бар</span>
 
         <h1 className={styles.title}>Барська Олія</h1>
 
-        <p className={styles.subtitle}>Соняшникова олія власного виробництва</p>
+        <p className={styles.subtitle}>
+          Соняшникова та ріпакова олія власного виробництва — пресуємо в місті
+          Бар на Вінниччині, без ГМО, за стандартом ДСТУ.
+        </p>
 
         <div className={styles.actions}>
           <a className={styles.primaryButton} href="/catalog">
-            Переглянути продукцію
+            Переглянути каталог
           </a>
-
           <a className={styles.secondaryButton} href="#about">
             Про нас
           </a>
         </div>
+      </div>
+
+      <div className={styles.imagePanel}>
+        <Image
+          src="/images/rip.webp"
+          alt="Поле ріпаку — сировина для олії Барська"
+          fill
+          priority
+          sizes="(min-width: 900px) 45vw, 100vw"
+          className={styles.image}
+        />
       </div>
     </section>
   );
