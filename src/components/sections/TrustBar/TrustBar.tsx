@@ -1,7 +1,7 @@
 import styles from "./TrustBar.module.css";
 
 const badges = [
-  { title: "ДСТУ 8175:2015", caption: "Державний стандарт якості" },
+  { title: "ДСТУ 4492:2005", caption: "Державний стандарт якості" },
   { title: "Без ГМО", caption: "Перевірена сировина" },
   { title: "Extra Virgin", caption: "Холодного пресування, першого віджиму" },
   { title: "24 місяці", caption: "Термін зберігання, герметична тара" },

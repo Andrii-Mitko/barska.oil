@@ -26,8 +26,8 @@ export default function HeroSection() {
 
       <div className={styles.imagePanel}>
         <Image
-          src="/images/rip.webp"
-          alt="Поле ріпаку — сировина для олії Барська"
+          src="/images/hero.webp"
+          alt="Поле соняшника — сировина для олії Барська"
           fill
           priority
           sizes="(min-width: 900px) 45vw, 100vw"
