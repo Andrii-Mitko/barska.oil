@@ -34,11 +34,23 @@ const navFont = Bad_Script({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
+
   title: {
-    default: `${SITE_NAME} — соняшникова та ріпакова олія власного виробництва`,
+    default: `${SITE_NAME} — соняшникова олія власного виробництва`,
     template: `%s — ${SITE_NAME}`,
   },
+
   description: DEFAULT_DESCRIPTION,
+
+  alternates: {
+    canonical: "/",
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+  },
+
   openGraph: {
     type: "website",
     locale: "uk_UA",
