@@ -23,7 +23,7 @@ export default function FarmSupply() {
             <h3 className={styles.cardTitle}>Продаємо соняшникову макуху</h3>
             <p className={styles.cardText}>
               Макуха завжди в наявності після пресування — якісний білковий корм
-              для тваринництва.
+              для тварин.
             </p>
           </div>
         </div>
