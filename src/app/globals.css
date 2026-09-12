@@ -19,6 +19,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 96px;
 }
 
 body {
@@ -99,10 +100,16 @@ ol {
   :root {
     --container-padding: 32px;
   }
+  html {
+    scroll-padding-top: 112px;
+  }
 }
 
 @media (min-width: 1200px) {
   :root {
     --container-padding: 40px;
+  }
+  html {
+    scroll-padding-top: 132px;
   }
 }
