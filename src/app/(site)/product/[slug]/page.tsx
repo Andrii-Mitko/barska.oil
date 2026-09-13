@@ -9,10 +9,15 @@ import { Product } from "@/models/Product";
 import type { ICategory } from "@/types/category";
 import type { IProduct } from "@/types/product";
 import styles from "./product.module.css";
+import { SITE_URL } from "@/lib/seo/config";
+
 export const dynamic = "force-dynamic";
 interface ProductPageProps {
   params: Promise<{ slug: string }>;
 }
+
+const DEFAULT_PRODUCT_IMAGE = "/images/raf1.webp";
+
 export async function generateMetadata({
   params,
 }: ProductPageProps): Promise<Metadata> {
@@ -30,7 +35,9 @@ export async function generateMetadata({
   const description =
     product.description?.trim() ||
     `${product.name} — ${product.price} ₴. Доставка Новою Поштою по Україні.`;
-  const image = product.images[0];
+
+  const image = product.images[0] || DEFAULT_PRODUCT_IMAGE;
+
   return {
     title: product.name,
     description,
@@ -62,9 +69,50 @@ export default async function ProductPage({ params }: ProductPageProps) {
   if (!product) {
     notFound();
   }
+
+  const productJsonLd = getProductJsonLd(product);
+
+  function getProductJsonLd(product: IProduct) {
+    const description =
+      product.description?.trim() ||
+      `${product.name} — ${product.price} ₴. Доставка Новою Поштою по Україні.`;
+
+    const images = product.images
+      .filter(Boolean)
+      .map((image) => new URL(image, SITE_URL).toString());
+
+    return {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      name: product.name,
+      description,
+      sku: product.sku,
+      image: images,
+      brand: {
+        "@type": "Brand",
+        name: "Барська Олія",
+      },
+      offers: {
+        "@type": "Offer",
+        url: `${SITE_URL}/product/${product.slug}`,
+        price: product.price,
+        priceCurrency: "UAH",
+        availability: product.inStock
+          ? "https://schema.org/InStock"
+          : "https://schema.org/OutOfStock",
+        itemCondition: "https://schema.org/NewCondition",
+      },
+    };
+  }
+
   return (
     <main className={styles.productPage}>
-      {" "}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(productJsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
       <div className={styles.container}>
         {" "}
         <BackButton fallbackHref="/catalog" label="Назад до каталогу" />{" "}
