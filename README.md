@@ -123,3 +123,16 @@ npm run dev
 ## Деплой
 
 Проєкт задеплоєний на [Vercel](https://vercel.com). Пуш у `main` гілку автоматично запускає новий деплой.
+
+## Author
+
+**Andrii Mitko** — Full Stack JavaScript Developer
+
+Building modern, scalable, and user-friendly web applications with React, Next.js, TypeScript, Node.js, and MongoDB.
+
+- Portfolio: [andrii-mitko-brand.vercel.app](https://andrii-mitko-brand.vercel.app/)
+- GitHub: [@Andrii-Mitko](https://github.com/Andrii-Mitko)
+- LinkedIn: [andrii-mitko](https://www.linkedin.com/in/andrii-mitko/)
+- Email: [andreymit123@gmail.com](mailto:andreymit123@gmail.com)
+
+---
