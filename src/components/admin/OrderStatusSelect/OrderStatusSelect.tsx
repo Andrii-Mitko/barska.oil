@@ -50,7 +50,7 @@ export default function OrderStatusSelect({
 
   return (
     <select
-      className={styles.statusSelect}
+      className={`${styles.statusSelect} ${styles[currentStatus]}`}
       value={currentStatus}
       onChange={handleChange}
       disabled={isUpdating}
