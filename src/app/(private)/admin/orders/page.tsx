@@ -50,14 +50,23 @@ export default async function AdminOrdersPage() {
               </div>
 
               <div className={styles.items}>
-                {(order.items ?? []).map((item) => (
-                  <div key={item.productSlug} className={styles.itemRow}>
-                    <span>
-                      {item.productName} × {item.quantity}
-                    </span>
-                    <span>{item.pricePerUnit * item.quantity} ₴</span>
-                  </div>
-                ))}
+                {(order.items ?? []).map((item) => {
+                  const unit = item.unit ?? "шт";
+                  const weight =
+                    unit === "шт" && item.weightKg
+                      ? ` (${item.weightKg} кг)`
+                      : "";
+
+                  return (
+                    <div key={item.productSlug} className={styles.itemRow}>
+                      <span>
+                        {item.productName} — {item.quantity} {unit}
+                        {weight}
+                      </span>
+                      <span>{item.pricePerUnit * item.quantity} ₴</span>
+                    </div>
+                  );
+                })}
               </div>
 
               <div className={styles.footer}>
