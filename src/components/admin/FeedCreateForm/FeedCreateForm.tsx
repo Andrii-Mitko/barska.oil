@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -14,7 +15,10 @@ type FeedCreateFormValues = z.input<typeof feedCreateSchema>;
 
 export default function FeedCreateForm() {
   const router = useRouter();
+
   const [serverError, setServerError] = useState<string | null>(null);
+  const [images, setImages] = useState<string[]>([]);
+  const [isUploading, setIsUploading] = useState(false);
 
   const {
     register,
@@ -24,8 +28,46 @@ export default function FeedCreateForm() {
     resolver: zodResolver(feedCreateSchema),
     defaultValues: {
       inStock: true,
+      images: [],
     },
   });
+
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const file = event.target.files?.[0];
+
+    if (!file) {
+      return;
+    }
+
+    setIsUploading(true);
+    setServerError(null);
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const response = await fetch("/api/admin/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setServerError(data.error ?? "Помилка завантаження фото");
+        return;
+      }
+
+      setImages([data.url]);
+    } catch (error) {
+      console.error(error);
+      setServerError("Помилка завантаження фото");
+    } finally {
+      setIsUploading(false);
+    }
+  };
 
   const onSubmit = async (data: FeedCreateFormValues) => {
     setServerError(null);
@@ -35,7 +77,10 @@ export default function FeedCreateForm() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify({
+        ...data,
+        images,
+      }),
     });
 
     if (!response.ok) {
@@ -52,6 +97,35 @@ export default function FeedCreateForm() {
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
       {serverError && <span className={styles.error}>{serverError}</span>}
+
+      {images[0] && (
+        <Image
+          src={images[0]}
+          alt="Фото комбікорму"
+          width={120}
+          height={120}
+          className={styles.imagePreview}
+        />
+      )}
+
+      <div className={styles.field}>
+        <label className={styles.label} htmlFor="image">
+          Фото комбікорму
+        </label>
+
+        <input
+          id="image"
+          type="file"
+          accept="image/*"
+          className={styles.fileInput}
+          onChange={handleFileChange}
+          disabled={isUploading || isSubmitting}
+        />
+
+        {isUploading && (
+          <span className={styles.uploading}>Завантаження...</span>
+        )}
+      </div>
 
       <div className={styles.field}>
         <label className={styles.label} htmlFor="sku">
@@ -171,7 +245,11 @@ export default function FeedCreateForm() {
         <label htmlFor="inStock">В наявності</label>
       </div>
 
-      <button className={styles.submit} type="submit" disabled={isSubmitting}>
+      <button
+        className={styles.submit}
+        type="submit"
+        disabled={isSubmitting || isUploading}
+      >
         {isSubmitting ? "Створення..." : "Створити комбікорм"}
       </button>
     </form>

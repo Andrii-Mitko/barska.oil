@@ -9,6 +9,7 @@ export const feedCreateSchema = z.object({
   price: z.coerce.number().nonnegative(),
   inStock: z.boolean(),
   description: z.string().optional(),
+  images: z.array(z.string()).default([]),
 });
 
 export type FeedCreateInput = z.infer<typeof feedCreateSchema>;

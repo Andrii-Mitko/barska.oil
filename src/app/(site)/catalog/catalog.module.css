@@ -16,10 +16,11 @@
 
 .header {
   max-width: 760px;
-  margin-bottom: 40px;
+  margin-bottom: 32px;
 }
 
-.eyebrow {
+.eyebrow,
+.oilEyebrow {
   margin-bottom: 12px;
   color: var(--color-green);
   font-family: var(--font-body), sans-serif;
@@ -38,11 +39,77 @@
 }
 
 .description {
-  max-width: 520px;
+  max-width: 560px;
   margin-top: 20px;
   color: var(--color-muted);
   font-size: 18px;
   line-height: 1.5;
+}
+
+.productTypes {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-bottom: 64px;
+}
+
+.productType {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-height: 96px;
+  padding: 20px;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  transition:
+    border-color 200ms ease,
+    transform 200ms ease;
+}
+
+.productType:hover {
+  border-color: var(--color-green);
+  transform: translateY(-2px);
+}
+
+.productTypeIcon {
+  flex-shrink: 0;
+  font-size: 32px;
+  line-height: 1;
+}
+
+.productTypeTitle {
+  display: block;
+  color: var(--color-green-dark);
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.productTypeDescription {
+  display: block;
+  margin-top: 6px;
+  color: var(--color-muted);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.oilCatalog {
+  padding-top: 8px;
+}
+
+.oilHeader {
+  margin-bottom: 28px;
+}
+
+.oilEyebrow {
+  margin-bottom: 8px;
+}
+
+.oilTitle {
+  color: var(--color-green-dark);
+  font-size: clamp(32px, 7vw, 48px);
+  font-weight: 600;
+  line-height: 1;
 }
 
 .categories {
@@ -108,6 +175,17 @@
     padding-top: 64px;
   }
 
+  .productTypes {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .productType {
+    min-height: 140px;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
   .products {
     grid-template-columns: repeat(2, 1fr);
     gap: 28px;
@@ -115,6 +193,14 @@
 }
 
 @media (min-width: 900px) {
+  .productTypes {
+    gap: 20px;
+  }
+
+  .productType {
+    padding: 24px;
+  }
+
   .products {
     grid-template-columns: repeat(3, 1fr);
     gap: 32px;
@@ -128,7 +214,11 @@
   }
 
   .header {
-    margin-bottom: 48px;
+    margin-bottom: 40px;
+  }
+
+  .productTypes {
+    margin-bottom: 80px;
   }
 
   .products {

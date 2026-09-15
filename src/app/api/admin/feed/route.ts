@@ -45,7 +45,6 @@ export async function POST(request: Request) {
     const feed = await Feed.create({
       ...parsed.data,
       slug,
-      images: [],
     });
 
     return NextResponse.json({ feed }, { status: 201 });
