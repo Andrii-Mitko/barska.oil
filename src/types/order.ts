@@ -8,6 +8,7 @@ export interface OrderItem {
   quantity: number;
   pricePerUnit: number;
   unit?: OrderItemUnit;
+  weightKg?: number;
 }
 
 export interface IOrder {

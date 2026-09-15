@@ -222,7 +222,8 @@ export default async function FeedProductPage({ params }: FeedPageProps) {
                 pricePerUnit={feed.price}
                 inStock={feed.inStock}
                 image={feed.images[0]}
-                unit="кг"
+                unit="шт"
+                weightKg={feed.weightKg}
               />
             </div>
           </div>

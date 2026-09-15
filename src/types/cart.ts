@@ -5,4 +5,5 @@ export interface CartItem {
   quantity: number;
   image?: string;
   unit?: "шт" | "кг";
+  weightKg?: number;
 }

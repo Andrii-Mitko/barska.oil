@@ -11,6 +11,7 @@ interface AddToCartProps {
   inStock: boolean;
   image?: string;
   unit?: "шт" | "кг";
+  weightKg?: number;
 }
 
 export default function AddToCart({
@@ -20,6 +21,7 @@ export default function AddToCart({
   inStock,
   image,
   unit = "шт",
+  weightKg,
 }: AddToCartProps) {
   const { addItem } = useCart();
   const [quantity, setQuantity] = useState(1);
@@ -33,6 +35,7 @@ export default function AddToCart({
       quantity,
       image,
       unit,
+      weightKg,
     });
 
     setIsAdded(true);

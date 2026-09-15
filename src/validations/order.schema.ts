@@ -6,6 +6,7 @@ const orderItemSchema = z.object({
   quantity: z.coerce.number().int().min(1),
   pricePerUnit: z.number().nonnegative(),
   unit: z.enum(["шт", "кг"]).optional(),
+  weightKg: z.number().positive().optional(),
 });
 
 export const orderSchema = z.object({
