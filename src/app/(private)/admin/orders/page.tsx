@@ -4,6 +4,8 @@ import type { IOrder } from "@/types/order";
 import OrderStatusSelect from "@/components/admin/OrderStatusSelect/OrderStatusSelect";
 import styles from "./orders.module.css";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminOrdersPage() {
   await connectToDatabase();
 
@@ -11,9 +13,15 @@ export default async function AdminOrdersPage() {
     .sort({ createdAt: -1 })
     .lean()) as unknown as IOrder[];
 
+  const newOrdersCount = orders.filter(
+    (order) => order.status === "new",
+  ).length;
+
   return (
     <div>
-      <h1 className={styles.title}>Заявки ({orders.length})</h1>
+      <h1 className={styles.title}>
+        Заявки ({orders.length}) · Нових ({newOrdersCount})
+      </h1>
 
       {orders.length === 0 ? (
         <p className={styles.empty}>Заявок поки немає.</p>

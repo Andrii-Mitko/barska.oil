@@ -27,14 +27,25 @@ export default function OrderStatusSelect({
     const newStatus = event.target.value as OrderStatus;
     setIsUpdating(true);
 
-    await fetch(`/api/admin/orders/${orderId}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ status: newStatus }),
-    });
+    try {
+      const response = await fetch(`/api/admin/orders/${orderId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: newStatus }),
+      });
 
-    setIsUpdating(false);
-    router.refresh();
+      if (!response.ok) {
+        const data = await response.json().catch(() => null);
+
+        throw new Error(data?.error || "Не вдалося оновити статус заявки");
+      }
+
+      router.refresh();
+    } catch (error) {
+      console.error("Status update error:", error);
+    } finally {
+      setIsUpdating(false);
+    }
   };
 
   return (
