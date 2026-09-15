@@ -10,6 +10,7 @@ interface AddToCartProps {
   pricePerUnit: number;
   inStock: boolean;
   image?: string;
+  unit?: "шт" | "кг";
 }
 
 export default function AddToCart({
@@ -18,13 +19,22 @@ export default function AddToCart({
   pricePerUnit,
   inStock,
   image,
+  unit = "шт",
 }: AddToCartProps) {
   const { addItem } = useCart();
   const [quantity, setQuantity] = useState(1);
   const [isAdded, setIsAdded] = useState(false);
 
   const handleAdd = () => {
-    addItem({ productSlug, productName, pricePerUnit, quantity, image });
+    addItem({
+      productSlug,
+      productName,
+      pricePerUnit,
+      quantity,
+      image,
+      unit,
+    });
+
     setIsAdded(true);
     setTimeout(() => setIsAdded(false), 2000);
   };
@@ -33,6 +43,7 @@ export default function AddToCart({
     return (
       <div className={styles.wrapper}>
         <p className={styles.outOfStock}>Товар тимчасово відсутній</p>
+
         <a href="tel:+380677407135" className={styles.outOfStockCall}>
           Уточнити появу за телефоном
         </a>
@@ -42,7 +53,9 @@ export default function AddToCart({
 
   return (
     <div className={styles.wrapper}>
-      <p className={styles.currentPrice}>{pricePerUnit} ₴/шт</p>
+      <p className={styles.currentPrice}>
+        {pricePerUnit} ₴/{unit}
+      </p>
 
       <div className={styles.controls}>
         <div className={styles.quantity}>
@@ -53,7 +66,9 @@ export default function AddToCart({
           >
             −
           </button>
+
           <span className={styles.quantityValue}>{quantity}</span>
+
           <button
             type="button"
             className={styles.quantityButton}

@@ -36,6 +36,7 @@ export default function CartPage() {
             productName: item.productName,
             quantity: item.quantity,
             pricePerUnit: item.pricePerUnit,
+            unit: item.unit ?? "шт",
           })),
         }),
       });
@@ -91,7 +92,9 @@ export default function CartPage() {
               <div key={item.productSlug} className={styles.item}>
                 <div className={styles.itemInfo}>
                   <p className={styles.itemName}>{item.productName}</p>
-                  <p className={styles.itemMeta}>{item.pricePerUnit} ₴/шт</p>
+                  <p className={styles.itemMeta}>
+                    {item.pricePerUnit} ₴/{item.unit ?? "шт"}
+                  </p>
                 </div>
 
                 <div className={styles.itemControls}>

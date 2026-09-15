@@ -4,4 +4,5 @@ export interface CartItem {
   pricePerUnit: number;
   quantity: number;
   image?: string;
+  unit?: "шт" | "кг";
 }

@@ -28,7 +28,7 @@ export default function AdminNav() {
             className={styles.logoImage}
           />
         </Link>
-        <h3>Адміністрування</h3>
+        <h3>АДМІН</h3>
         <Link
           href="/admin/orders"
           className={`${styles.navLink} ${
@@ -44,6 +44,15 @@ export default function AdminNav() {
           }`}
         >
           Олія
+        </Link>
+
+        <Link
+          href="/admin/makukha"
+          className={`${styles.navLink} ${
+            pathname.startsWith("/admin/makukha") ? styles.navLinkActive : ""
+          }`}
+        >
+          Макуха
         </Link>
 
         <Link

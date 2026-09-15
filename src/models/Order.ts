@@ -7,6 +7,11 @@ const OrderItemSchema = new Schema(
     productName: { type: String, required: true },
     quantity: { type: Number, required: true },
     pricePerUnit: { type: Number, required: true },
+    unit: {
+      type: String,
+      enum: ["шт", "кг"],
+      default: "шт",
+    },
   },
   { _id: false },
 );

@@ -1,0 +1,79 @@
+/* src/app/(private)/admin/MakukhaCreateForm/MakukhaCreateForm.module.css */
+.form {
+  width: 100%;
+  max-width: 700px;
+  margin-top: 24px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.label {
+  margin-bottom: 8px;
+  color: var(--color-green-dark);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.input,
+.textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-white);
+  color: var(--color-text);
+  font: inherit;
+}
+
+.input:focus,
+.textarea:focus {
+  outline: 2px solid var(--color-green);
+  outline-offset: -1px;
+}
+
+.textarea {
+  min-height: 140px;
+  resize: vertical;
+}
+
+.checkboxRow {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.checkboxRow input {
+  width: 18px;
+  height: 18px;
+}
+
+.submit {
+  min-height: 48px;
+  padding: 12px 24px;
+  border: 0;
+  background-color: var(--color-green);
+  color: var(--color-white);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.submit:hover {
+  background-color: var(--color-green-dark);
+}
+
+.submit:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.error {
+  display: block;
+  margin-bottom: 16px;
+  color: #a33229;
+  font-size: 14px;
+}

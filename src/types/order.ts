@@ -1,10 +1,13 @@
 export type OrderStatus = "new" | "processed" | "cancelled";
 
+export type OrderItemUnit = "шт" | "кг";
+
 export interface OrderItem {
   productSlug: string;
   productName: string;
   quantity: number;
   pricePerUnit: number;
+  unit?: OrderItemUnit;
 }
 
 export interface IOrder {

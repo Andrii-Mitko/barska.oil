@@ -1,8 +1,10 @@
+// src/lib/telegram/sendOrderNotification.ts
 interface OrderNotificationItem {
   productSlug: string;
   productName: string;
   quantity: number;
   pricePerUnit: number;
+  unit?: "шт" | "кг";
 }
 
 interface OrderNotificationInput {
@@ -25,10 +27,11 @@ export async function sendOrderNotification(
   }
 
   const itemsList = input.items
-    .map(
-      (item) =>
-        `${item.productName} ${item.quantity}шт*${item.pricePerUnit}грн`,
-    )
+    .map((item) => {
+      const unit = item.unit ?? "шт";
+
+      return `${item.productName} ${item.quantity}${unit}*${item.pricePerUnit}грн`;
+    })
     .join("\n");
 
   const text = [
