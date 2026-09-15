@@ -33,7 +33,7 @@ export default function Header() {
           </Link>
 
           <Link href="/catalog" className={styles.navLink}>
-            Каталог
+            Продукція
           </Link>
 
           <Link href="/#about" className={styles.navLink}>
@@ -82,7 +82,7 @@ export default function Header() {
             className={styles.mobileNavLink}
             onClick={closeMenu}
           >
-            Каталог
+            Продукція
           </Link>
           <Link
             href="/#about"
