@@ -37,6 +37,7 @@ export default function CartPage() {
             quantity: item.quantity,
             pricePerUnit: item.pricePerUnit,
             unit: item.unit ?? "шт",
+            weightKg: item.weightKg,
           })),
         }),
       });

@@ -12,6 +12,10 @@ const OrderItemSchema = new Schema(
       enum: ["шт", "кг"],
       default: "шт",
     },
+    weightKg: {
+      type: Number,
+      min: 0,
+    },
   },
   { _id: false },
 );
