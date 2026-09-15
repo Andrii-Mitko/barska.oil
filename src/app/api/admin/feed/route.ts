@@ -2,13 +2,13 @@ import { NextResponse } from "next/server";
 
 import { connectToDatabase } from "@/lib/db/mongodb";
 import { createSlug } from "@/lib/slug";
-import { Product } from "@/models/Product";
-import { productCreateSchema } from "@/validations/productCreate.schema";
+import { Feed } from "@/models/Feed";
+import { feedCreateSchema } from "@/validations/feedCreate.schema";
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const parsed = productCreateSchema.safeParse(body);
+    const parsed = feedCreateSchema.safeParse(body);
 
     if (!parsed.success) {
       return NextResponse.json(
@@ -31,29 +31,29 @@ export async function POST(request: Request) {
 
     await connectToDatabase();
 
-    const existing = await Product.findOne({
+    const existing = await Feed.findOne({
       $or: [{ sku: parsed.data.sku }, { slug }],
     });
 
     if (existing) {
       return NextResponse.json(
-        { error: "Товар з таким SKU або slug вже існує" },
+        { error: "Комбікорм з таким SKU або slug вже існує" },
         { status: 409 },
       );
     }
 
-    const product = await Product.create({
+    const feed = await Feed.create({
       ...parsed.data,
       slug,
       images: [],
     });
 
-    return NextResponse.json({ product }, { status: 201 });
+    return NextResponse.json({ feed }, { status: 201 });
   } catch (error) {
     console.error(error);
 
     return NextResponse.json(
-      { error: "Помилка створення товару" },
+      { error: "Помилка створення комбікорму" },
       { status: 500 },
     );
   }

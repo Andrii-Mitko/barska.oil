@@ -43,7 +43,16 @@ export default function AdminNav() {
             pathname.startsWith("/admin/products") ? styles.navLinkActive : ""
           }`}
         >
-          Товари
+          Олія
+        </Link>
+
+        <Link
+          href="/admin/feed"
+          className={`${styles.navLink} ${
+            pathname.startsWith("/admin/feed") ? styles.navLinkActive : ""
+          }`}
+        >
+          Комбікорм
         </Link>
       </nav>
 

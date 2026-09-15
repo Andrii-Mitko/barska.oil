@@ -16,9 +16,9 @@ export default async function AdminProductsPage() {
   return (
     <div>
       <div className={styles.header}>
-        <h1 className={styles.title}>Товари ({products.length})</h1>
+        <h1 className={styles.title}>Олія ({products.length})</h1>
         <Link href="/admin/products/new" className={styles.addButton}>
-          + Додати товар
+          + Додати олію
         </Link>
       </div>
 

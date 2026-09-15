@@ -79,21 +79,6 @@ export default function ProductCreateForm() {
       </div>
 
       <div className={styles.field}>
-        <label className={styles.label} htmlFor="slug">
-          Slug (латиницею, для URL)
-        </label>
-        <input
-          id="slug"
-          className={styles.input}
-          placeholder="oliya-sonyashnykova-rafinovana-1l"
-          {...register("slug")}
-        />
-        {errors.slug && (
-          <span className={styles.error}>{errors.slug.message}</span>
-        )}
-      </div>
-
-      <div className={styles.field}>
         <label className={styles.label} htmlFor="category">
           Категорія
         </label>

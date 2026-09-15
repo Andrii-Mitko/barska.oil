@@ -55,7 +55,7 @@ export default async function AdminOrdersPage() {
               <div className={styles.footer}>
                 <span className={styles.total}>{order.totalSum} ₴</span>
                 <OrderStatusSelect
-                  orderId={order._id}
+                  orderId={order._id.toString()}
                   currentStatus={order.status}
                 />
               </div>
