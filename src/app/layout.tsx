@@ -4,6 +4,7 @@ import {
   Roboto_Mono,
   Bad_Script,
 } from "next/font/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 import type { Metadata } from "next";
 import { SITE_URL, SITE_NAME, DEFAULT_DESCRIPTION } from "@/lib/seo/config";
@@ -66,12 +67,16 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const gaId = process.env.NEXT_PUBLIC_GA_ID;
+
   return (
     <html lang="uk">
       <body
         className={`${headingFont.variable} ${bodyFont.variable} ${numberFont.variable} ${navFont.variable}`}
       >
         {children}
+
+        {gaId && <GoogleAnalytics gaId={gaId} />}
       </body>
     </html>
   );

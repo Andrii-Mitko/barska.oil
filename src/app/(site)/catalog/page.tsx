@@ -1,5 +1,7 @@
 import Link from "next/link";
+import { Suspense } from "react";
 import type { Metadata } from "next";
+import type { SortOrder } from "mongoose";
 
 import { connectToDatabase } from "@/lib/db/mongodb";
 import { Category } from "@/models/Category";
@@ -7,8 +9,20 @@ import { Product } from "@/models/Product";
 import type { ICategory } from "@/types/category";
 import type { IProduct } from "@/types/product";
 import ProductCard from "@/components/product/ProductCard/ProductCard";
+import CatalogControls from "@/components/product/CatalogControls/CatalogControls";
 
 import styles from "./catalog.module.css";
+
+const SORT_MAP: Record<string, Record<string, SortOrder>> = {
+  "price-asc": { price: 1 },
+  "price-desc": { price: -1 },
+  new: { createdAt: -1 },
+};
+
+// екранує спецсимволи regexp, щоб пошук не падав на них
+function escapeRegExp(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
 
 export const dynamic = "force-dynamic";
 
@@ -19,11 +33,16 @@ export const metadata: Metadata = {
 };
 
 interface CatalogPageProps {
-  searchParams: Promise<{ category?: string }>;
+  searchParams: Promise<{
+    category?: string;
+    sort?: string;
+    q?: string;
+    volume?: string;
+  }>;
 }
 
 export default async function CatalogPage({ searchParams }: CatalogPageProps) {
-  const { category: categorySlug } = await searchParams;
+  const { category: categorySlug, sort, q, volume } = await searchParams;
 
   await connectToDatabase();
 
@@ -43,7 +62,24 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
     }
   }
 
-  const products = (await Product.find(filter).lean()) as unknown as IProduct[];
+  // доступні об'єми рахуємо ще без q/sort/volume — тільки для активної категорії
+  const availableVolumes = (
+    (await Product.distinct("volumeMl", filter)) as number[]
+  ).sort((a, b) => a - b);
+
+  if (volume) {
+    filter.volumeMl = Number(volume);
+  }
+
+  if (q) {
+    filter.name = { $regex: escapeRegExp(q), $options: "i" };
+  }
+
+  const sortOption = SORT_MAP[sort ?? "new"] ?? SORT_MAP.new;
+
+  const products = (await Product.find(filter)
+    .sort(sortOption)
+    .lean()) as unknown as IProduct[];
 
   return (
     <main className={styles.catalog}>
@@ -135,6 +171,10 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
             ))}
           </nav>
 
+          <Suspense fallback={null}>
+            <CatalogControls availableVolumes={availableVolumes} />
+          </Suspense>
+
           {products.length > 0 ? (
             <div className={styles.products}>
               {products.map((product) => (
@@ -142,7 +182,11 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
               ))}
             </div>
           ) : (
-            <p className={styles.empty}>Товарів у цій категорії поки немає.</p>
+            <p className={styles.empty}>
+              {q
+                ? "За цим запитом нічого не знайдено."
+                : "Товарів у цій категорії поки немає."}
+            </p>
           )}
         </section>
       </div>
