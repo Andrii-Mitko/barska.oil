@@ -6,7 +6,7 @@ import {
 } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { SITE_URL, SITE_NAME, DEFAULT_DESCRIPTION } from "@/lib/seo/config";
 
 const headingFont = PT_Serif({
@@ -60,6 +60,13 @@ export const metadata: Metadata = {
     description: DEFAULT_DESCRIPTION,
     url: SITE_URL,
   },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 };
 
 export default function RootLayout({
