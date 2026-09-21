@@ -146,7 +146,7 @@ export default function CartPage() {
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
           <div className={styles.field}>
             <label className={styles.label} htmlFor="customerName">
-              ФІО
+              ПІБ
             </label>
             <input
               id="customerName"
