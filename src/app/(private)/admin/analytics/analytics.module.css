@@ -147,34 +147,60 @@
   background-color: #2563eb;
 }
 
+/* AnalyticsChart */
+
 .chartWrapper {
   width: 100%;
   margin-top: 24px;
-  overflow-x: auto;
+  overflow: hidden;
+}
+
+.chartContainer {
+  position: relative;
+  width: 100%;
+  min-width: 0;
 }
 
 .chart {
   display: block;
   width: 100%;
-  min-width: 600px;
   height: auto;
 }
 
 .chartGridLine {
   stroke: #e5e7eb;
   stroke-width: 1;
+  stroke-dasharray: 4 4;
+}
+
+.chartAxisLine {
+  stroke: #d1d5db;
+  stroke-width: 1;
+}
+
+.chartHoverArea {
+  fill: transparent;
+  cursor: crosshair;
+}
+
+.chartPointGroup {
+  cursor: crosshair;
 }
 
 .chartLineVisitors {
   fill: none;
   stroke: var(--color-green-dark);
   stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .chartLinePageviews {
   fill: none;
   stroke: #2563eb;
   stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .chartPointVisitors {
@@ -192,6 +218,52 @@
 .chartLabel {
   fill: #6b7280;
   font-size: 11px;
+}
+
+.chartTooltip {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 150px;
+  padding: 10px 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 6px 20px rgb(0 0 0 / 12%);
+  color: #374151;
+  font-size: 12px;
+  pointer-events: none;
+  transform: translate(-50%, calc(-100% - 12px));
+}
+
+.chartTooltipDate {
+  margin-bottom: 3px;
+  color: #111827;
+  font-size: 13px;
+}
+
+.chartTooltip > span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.chartTooltipDot {
+  width: 7px;
+  height: 7px;
+  flex-shrink: 0;
+  border-radius: 50%;
+}
+
+.chartTooltipDotVisitors {
+  background-color: var(--color-green-dark);
+}
+
+.chartTooltipDotPageviews {
+  background-color: #2563eb;
 }
 
 .analyticsCard {
