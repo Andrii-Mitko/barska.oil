@@ -44,7 +44,7 @@ export default function AdminNav() {
             pathname.startsWith("/admin/analytics") ? styles.navLinkActive : ""
           }`}
         >
-          Відвідуваність
+          Аналітика
         </Link>
 
         <Link
