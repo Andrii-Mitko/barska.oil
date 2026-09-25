@@ -5,7 +5,26 @@ const VERCEL_API_URL = "https://api.vercel.com";
 type AnalyticsQuery = {
   since: string;
   until: string;
-  by?: "day" | "route" | "country" | "referrerHostname" | "deviceType";
+  by?:
+    | "hour"
+    | "day"
+    | "week"
+    | "month"
+    | "year"
+    | "country"
+    | "deviceType"
+    | "environment"
+    | "requestPath"
+    | "referrerHostname"
+    | "osName"
+    | "browserName"
+    | "route"
+    | "utmSource"
+    | "utmMedium"
+    | "utmCampaign"
+    | "utmContent"
+    | "utmTerm"
+    | "flags";
   limit?: number;
   filter?: string;
 };
@@ -22,13 +41,9 @@ type VercelAnalyticsResponse = {
   data: Array<Record<string, unknown>>;
 };
 
-export async function getVercelVisits({
-  since,
-  until,
-  by = "day",
-  limit,
-  filter,
-}: AnalyticsQuery): Promise<VercelAnalyticsResponse> {
+
+
+function getVercelConfig() {
   const projectId = process.env.VERCEL_PROJECT_ID;
   const teamId = process.env.VERCEL_TEAM_ID;
   const analyticsToken = process.env.VERCEL_ANALYTICS_TOKEN;
@@ -44,6 +59,22 @@ export async function getVercelVisits({
   if (!analyticsToken) {
     throw new Error("VERCEL_ANALYTICS_TOKEN is not configured");
   }
+
+  return {
+    projectId,
+    teamId,
+    analyticsToken,
+  };
+}
+
+export async function getVercelVisits({
+  since,
+  until,
+  by = "day",
+  limit,
+  filter,
+}: AnalyticsQuery): Promise<VercelAnalyticsResponse> {
+  const { projectId, teamId, analyticsToken } = getVercelConfig();
 
   const params = new URLSearchParams({
     teamId,
