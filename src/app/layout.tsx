@@ -5,6 +5,7 @@ import {
   Bad_Script,
 } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import type { Metadata, Viewport } from "next";
 import { SITE_URL, SITE_NAME, DEFAULT_DESCRIPTION } from "@/lib/seo/config";
@@ -82,6 +83,8 @@ export default function RootLayout({
         className={`${headingFont.variable} ${bodyFont.variable} ${numberFont.variable} ${navFont.variable}`}
       >
         {children}
+
+        <Analytics />
 
         {gaId && <GoogleAnalytics gaId={gaId} />}
       </body>

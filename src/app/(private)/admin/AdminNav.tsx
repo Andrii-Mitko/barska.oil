@@ -37,6 +37,16 @@ export default function AdminNav() {
         >
           Заявки
         </Link>
+
+        <Link
+          href="/admin/analytics"
+          className={`${styles.navLink} ${
+            pathname.startsWith("/admin/analytics") ? styles.navLinkActive : ""
+          }`}
+        >
+          Відвідуваність
+        </Link>
+
         <Link
           href="/admin/products"
           className={`${styles.navLink} ${
