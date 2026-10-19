@@ -41,7 +41,7 @@ export default function CatalogControls({
       }
     });
 
-    router.push(`${pathname}?${params.toString()}`);
+    router.push(`${pathname}?${params.toString()}`, { scroll: false });
   };
 
   const handleSearchChange = (value: string) => {

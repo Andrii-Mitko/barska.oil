@@ -67,8 +67,10 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
     (await Product.distinct("volumeMl", filter)) as number[]
   ).sort((a, b) => a - b);
 
-  if (volume) {
-    filter.volumeMl = Number(volume);
+  const volumeMl = Number(volume);
+
+  if (volume && Number.isFinite(volumeMl)) {
+    filter.volumeMl = volumeMl;
   }
 
   if (q) {
@@ -80,6 +82,18 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
   const products = (await Product.find(filter)
     .sort(sortOption)
     .lean()) as unknown as IProduct[];
+
+  const buildCategoryHref = (slug?: string): string => {
+    const params = new URLSearchParams();
+
+    if (slug) params.set("category", slug);
+    if (sort) params.set("sort", sort);
+    if (q) params.set("q", q);
+
+    const query = params.toString();
+
+    return query ? `/catalog?${query}` : "/catalog";
+  };
 
   return (
     <main className={styles.catalog}>
@@ -148,7 +162,8 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
             aria-label="Категорії соняшникової олії"
           >
             <Link
-              href="/catalog"
+              href={buildCategoryHref()}
+              scroll={false}
               className={
                 !categorySlug ? styles.activeCategory : styles.category
               }
@@ -159,7 +174,8 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
             {categories.map((category) => (
               <Link
                 key={category.slug}
-                href={`/catalog?category=${category.slug}`}
+                href={buildCategoryHref(category.slug)}
+                scroll={false}
                 className={
                   categorySlug === category.slug
                     ? styles.activeCategory
