@@ -1,19 +1,26 @@
-import {
-  PT_Serif,
-  Source_Sans_3,
-  Roboto_Mono,
-  Bad_Script,
-} from "next/font/google";
+import { Source_Sans_3, Roboto_Mono, Bad_Script } from "next/font/google";
+import localFont from "next/font/local";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import type { Metadata, Viewport } from "next";
 import { SITE_URL, SITE_NAME, DEFAULT_DESCRIPTION } from "@/lib/seo/config";
 
-const headingFont = PT_Serif({
+const headingFont = localFont({
+  src: [
+    {
+      path: "./fonts/Zakon-Regular.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "./fonts/Zakon-Bold.ttf",
+      weight: "700",
+      style: "normal",
+    },
+  ],
   variable: "--font-heading",
-  subsets: ["cyrillic", "latin"],
-  weight: ["400", "700"],
+  display: "swap",
 });
 
 const bodyFont = Source_Sans_3({
